@@ -1,10 +1,9 @@
-
 package Classes;
 
 public class Produto {
 
     private String Nome;
-    private float CustoBase;
+    private double ValorBase;
     private int Quantidade;
 
     public String getNome() {
@@ -23,20 +22,18 @@ public class Produto {
         this.Quantidade = Quantidade;
     }
 
-    public float getCustoUnitario() {
-        return CustoBase;
+    public double getValorBase() {
+        return ValorBase;
     }
 
-    public void setCustoUnitario(float CustoUnitario) {
-        this.CustoBase = CustoUnitario;
+    public void setValorBase(double ValorBase) {
+        this.ValorBase = ValorBase;
     }
 
-    public float getCustoBase() {
-        return CustoBase;
-    }
-
-    public void setCustoBase(float CustoBase) {
-        this.CustoBase = CustoBase;
+    public double GetValorVenda() {
+        double retorno = 0;
+        retorno = ValorBase * 0.90;
+        return retorno;
     }
 
 }

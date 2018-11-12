@@ -6,7 +6,7 @@ public class Pedido {
     private ArrayList<ProdutoBebida> Bebidas = new ArrayList();
     private ArrayList<ProdutoPizza> Pizzas = new ArrayList<>();
     private Cliente cliente = new Cliente();
-    private float ValorTotal;
+    private double ValorTotal;
     private long PedidoID;
 
     public ArrayList<ProdutoBebida> getBebidas() {
@@ -33,7 +33,7 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public float getValorTotal() {
+    public double getValorTotal() {
         return ValorTotal;
     }
 
