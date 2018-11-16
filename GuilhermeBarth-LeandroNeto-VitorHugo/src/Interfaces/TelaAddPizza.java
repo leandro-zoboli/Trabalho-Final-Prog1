@@ -5,6 +5,11 @@
  */
 package Interfaces;
 
+import Classes.Igrediente;
+import Classes.ProdutoPizza;
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
 /**
  *
  * @author vhelmbrecht
@@ -59,6 +64,8 @@ public class TelaAddPizza extends javax.swing.JFrame {
 
         jLabel4.setText("Valor Total");
 
+        tf_ValorTotal.setEditable(false);
+
         btn_Cancelar.setText("Cancelar");
         btn_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,6 +74,11 @@ public class TelaAddPizza extends javax.swing.JFrame {
         });
 
         btn_Cadastrar.setText("Cadastrar (ver ficha)");
+        btn_Cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_CadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -145,6 +157,23 @@ public class TelaAddPizza extends javax.swing.JFrame {
         principal.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_btn_CancelarActionPerformed
+
+    private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
+        try {
+            if (tf_Nome.getText().equals("")) {
+                throw new Exception();
+            }
+            ProdutoPizza pizza = new ProdutoPizza();
+            pizza.setNome(tf_Nome.getText());
+            JOptionPane.showMessageDialog(this, "Pizza cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            InterfacePrincipal principal = new InterfacePrincipal();
+            principal.setVisible(true);
+            principal.setLocationRelativeTo(null);
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Um ou mais campos não foram preenchidos corretamente", "Erro", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_CadastrarActionPerformed
 
     /**
      * @param args the command line arguments

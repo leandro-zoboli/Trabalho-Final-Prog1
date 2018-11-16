@@ -150,6 +150,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tf_ValorTotal">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btn_Cancelar">
       <Properties>
@@ -163,6 +166,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cadastrar (ver ficha)"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_CadastrarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

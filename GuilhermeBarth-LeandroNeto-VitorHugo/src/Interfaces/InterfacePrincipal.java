@@ -1,6 +1,10 @@
 package Interfaces;
 
+import Classes.Igrediente;
 import Classes.Pedido;
+import Classes.ProdutoBebida;
+import Classes.ProdutoPizza;
+import Classes.Cliente;
 import java.util.ArrayList;
 
 public class InterfacePrincipal extends javax.swing.JFrame {
@@ -9,7 +13,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -162,7 +166,10 @@ public class InterfacePrincipal extends javax.swing.JFrame {
             }
         });
         ArrayList<Pedido> pedidos = new ArrayList<>();
-        
+        ArrayList<Igrediente> igredientes = new ArrayList<>();
+        ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+        ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+        ArrayList<Cliente> clientes = new ArrayList<>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
