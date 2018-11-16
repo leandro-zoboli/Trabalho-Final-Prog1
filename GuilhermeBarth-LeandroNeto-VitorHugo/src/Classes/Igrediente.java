@@ -30,12 +30,6 @@ public class Igrediente {
         this.Quantidade = Quantidade;
     }
 
-    public Igrediente(String Nome, float CustoUnitario, float Quantidade) {
-        this.Nome = Nome;
-        this.ValorUnitario = CustoUnitario;
-        this.Quantidade = Quantidade;
-    }
-
     public double GetCustoItem() {
         try {
             double retorno = 0;

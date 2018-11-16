@@ -115,7 +115,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtProdutoActionPerformed
 
     private void BtIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIngredienteActionPerformed
-        TelaIngrediente ingrediente = new TelaIngrediente();
+        TelaAddIngrediente ingrediente = new TelaAddIngrediente();
         ingrediente.setVisible(true);
         ingrediente.setLocationRelativeTo(null);
         dispose();

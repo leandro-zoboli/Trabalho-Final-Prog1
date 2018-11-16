@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class ProdutoPizza extends Produto {
 
     private ArrayList<Igrediente> igredientes = new ArrayList<>();
-    private String Nome;
 
     private enum Tamanho {
         pequena, media, grande;
@@ -26,17 +25,8 @@ public class ProdutoPizza extends Produto {
                 retorno += i.GetCustoItem();
             }
             return retorno;
-        }catch (Exception e){
-            throw new IllegalArgumentException("Ocorreu um erro ao calcular o valor total da pizza " + Nome + ". Erro: " + e.getMessage());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Ocorreu um erro ao calcular o valor total da pizza " + this.getNome() + ". Erro: " + e.getMessage());
         }
     }
-
-    public String getNome() {
-        return Nome;
-    }
-
-    public void setNome(String Nome) {
-        this.Nome = Nome;
-    }
-
 }
