@@ -1,6 +1,7 @@
 package Interfaces;
 
-import Interfaces.*;
+import Classes.Pedido;
+import java.util.ArrayList;
 
 public class InterfacePrincipal extends javax.swing.JFrame {
 
@@ -16,8 +17,8 @@ public class InterfacePrincipal extends javax.swing.JFrame {
         BtPedido = new javax.swing.JButton();
         BtProduto = new javax.swing.JButton();
         BtIngrediente = new javax.swing.JButton();
-        BtCliente = new javax.swing.JButton();
         BtSair = new javax.swing.JButton();
+        btn_AddBebida = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -28,7 +29,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
             }
         });
 
-        BtProduto.setText("Cadastrar produto");
+        BtProduto.setText("Cadastrar pizza");
         BtProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtProdutoActionPerformed(evt);
@@ -42,17 +43,17 @@ public class InterfacePrincipal extends javax.swing.JFrame {
             }
         });
 
-        BtCliente.setText("Cadastrar Cliente");
-        BtCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtClienteActionPerformed(evt);
-            }
-        });
-
         BtSair.setText("Sair / Terminar Expediente");
         BtSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtSairActionPerformed(evt);
+            }
+        });
+
+        btn_AddBebida.setText("Cadastrar Bebida");
+        btn_AddBebida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AddBebidaActionPerformed(evt);
             }
         });
 
@@ -61,73 +62,71 @@ public class InterfacePrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 20, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_AddBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(245, 245, 245)
                 .addComponent(BtSair)
-                .addGap(84, 84, 84))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtPedido)
-                    .addComponent(BtProduto))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtProduto)
                     .addComponent(BtIngrediente)
-                    .addComponent(BtCliente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                    .addComponent(btn_AddBebida))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(BtSair)
-                .addContainerGap())
+                .addGap(17, 17, 17))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSairActionPerformed
-        Relatorio relatorio = new Relatorio();
+        TelaRelatorio relatorio = new TelaRelatorio();
         relatorio.setVisible(true);
         relatorio.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_BtSairActionPerformed
 
     private void BtPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtPedidoActionPerformed
-        Pedido pedido = new Pedido();
+        TelaPedido pedido = new TelaPedido();
         pedido.setVisible(true);
         pedido.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_BtPedidoActionPerformed
 
     private void BtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtProdutoActionPerformed
-        Produto produto = new Produto();
+        TelaAddPizza produto = new TelaAddPizza();
         produto.setVisible(true);
         produto.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_BtProdutoActionPerformed
 
     private void BtIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIngredienteActionPerformed
-        Ingrediente ingrediente = new Ingrediente();
+        TelaIngrediente ingrediente = new TelaIngrediente();
         ingrediente.setVisible(true);
         ingrediente.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_BtIngredienteActionPerformed
 
-    private void BtClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtClienteActionPerformed
-        Cliente cliente = new Cliente();
-        cliente.setVisible(true);
-        cliente.setLocationRelativeTo(null);
+    private void btn_AddBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddBebidaActionPerformed
+        TelaAddBebida bebida = new TelaAddBebida();
+        bebida.setVisible(true);
+        //bebida.setLocationRelativeTo(null);
         dispose();
-    }//GEN-LAST:event_BtClienteActionPerformed
+    }//GEN-LAST:event_btn_AddBebidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,13 +161,15 @@ public class InterfacePrincipal extends javax.swing.JFrame {
                 new InterfacePrincipal().setVisible(true);
             }
         });
+        ArrayList<Pedido> pedidos = new ArrayList<>();
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtCliente;
     private javax.swing.JButton BtIngrediente;
     private javax.swing.JButton BtPedido;
     private javax.swing.JButton BtProduto;
     private javax.swing.JButton BtSair;
+    private javax.swing.JButton btn_AddBebida;
     // End of variables declaration//GEN-END:variables
 }
