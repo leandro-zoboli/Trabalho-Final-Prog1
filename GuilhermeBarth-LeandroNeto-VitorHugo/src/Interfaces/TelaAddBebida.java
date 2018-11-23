@@ -5,7 +5,13 @@
  */
 package Interfaces;
 
+import Classes.Cliente;
+import Classes.Igrediente;
+import Classes.Pedido;
 import Classes.ProdutoBebida;
+import Classes.ProdutoPizza;
+import java.awt.PopupMenu;
+import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javax.swing.JOptionPane;
 
@@ -18,7 +24,13 @@ public class TelaAddBebida extends javax.swing.JFrame {
     /**
      * Creates new form TelaAddBebida
      */
-    public TelaAddBebida() {
+    static ArrayList<Pedido> pedidos = new ArrayList<>();
+    static ArrayList<Igrediente> ingredientes = new ArrayList<>();
+    static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    static ArrayList<Cliente> clientes = new ArrayList<>();
+
+    public TelaAddBebida(ArrayList<Pedido> pedidos, ArrayList<Igrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
         initComponents();
     }
 
@@ -58,7 +70,12 @@ public class TelaAddBebida extends javax.swing.JFrame {
             }
         });
 
-        combo_Embalagens.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_Embalagens.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Caixa", "Garrafa de Vidro", "Garrafa", "Garrafa Plastica", "Lata", "Outros" }));
+        combo_Embalagens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_EmbalagensActionPerformed(evt);
+            }
+        });
 
         btn_Cancelar.setText("Cancelar");
         btn_Cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -149,13 +166,19 @@ public class TelaAddBebida extends javax.swing.JFrame {
 
     private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
         try {
+            if (bebidas.isEmpty()) {
+
+            }
             if (tf_Volume.getText().equals("") || tf_Custo.getText().equals("") || tf_Nome.getText().equals("")) {
                 throw new Exception();
             }
+            String a = String.valueOf(combo_Embalagens.getSelectedItem());
             ProdutoBebida bebida = new ProdutoBebida();
             bebida.setNome(tf_Nome.getText());
             bebida.setVolume(Float.parseFloat(tf_Volume.getText()));
             bebida.setValorBase(Double.parseDouble(tf_Custo.getText()));
+            bebidas.add(bebida);
+
             JOptionPane.showMessageDialog(this, "Bebida cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             InterfacePrincipal principal = new InterfacePrincipal();
             principal.setVisible(true);
@@ -165,6 +188,14 @@ public class TelaAddBebida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Um ou mais campos não foram preenchidos corretamente", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_CadastrarActionPerformed
+
+    private void combo_EmbalagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_EmbalagensActionPerformed
+        PopupMenu caixa = null;
+        caixa.add("Caixa");
+        caixa.add("xesque");
+        combo_Embalagens.add(caixa);
+
+    }//GEN-LAST:event_combo_EmbalagensActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,7 +226,8 @@ public class TelaAddBebida extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAddBebida().setVisible(true);
+                new TelaAddBebida(pedidos, ingredientes, bebidas, pizzas, clientes).setVisible(true);
+
             }
         });
     }

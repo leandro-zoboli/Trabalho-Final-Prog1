@@ -125,7 +125,11 @@ public class TelaPedido extends javax.swing.JFrame {
 
         jLabel14.setText("Produto");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         btn_AdicionaProduto.setText("Adicionar");
 
@@ -234,7 +238,7 @@ public class TelaPedido extends javax.swing.JFrame {
                     .addComponent(jLabel9)
                     .addComponent(jLabel10)
                     .addComponent(jLabel12))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -269,6 +273,13 @@ public class TelaPedido extends javax.swing.JFrame {
         extrato.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_btn_ConfirmarActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String item = "";
+        
+        jComboBox1.addItem(item);
+        
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

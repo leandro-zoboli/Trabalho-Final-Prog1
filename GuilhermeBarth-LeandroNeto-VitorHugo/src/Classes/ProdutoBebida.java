@@ -4,7 +4,7 @@ package Classes;
 public class ProdutoBebida extends Produto {
 
     private float Volume;
-
+    private String Embalagem;
     private enum Embalagem {
         lata, garrafaDeVidro, garrafaPlastica, caixa, outros;
     }

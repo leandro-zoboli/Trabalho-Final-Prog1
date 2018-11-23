@@ -1,11 +1,14 @@
 package Classes;
 
+import java.util.ArrayList;
+
 public class Produto {
 
     private String Nome;
     private double ValorBase;
     private int Quantidade;
-
+    public ArrayList<ProdutoBebida> listaDeBebidas = new ArrayList();
+    
     public String getNome() {
         return Nome;
     }

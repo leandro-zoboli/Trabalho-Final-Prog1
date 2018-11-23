@@ -126,7 +126,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtIngredienteActionPerformed
 
     private void btn_AddBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddBebidaActionPerformed
-        TelaAddBebida bebida = new TelaAddBebida();
+        TelaAddBebida bebida = new TelaAddBebida(pedidos, ingredientes, bebidas, pizzas, clientes);
         bebida.setVisible(true);
         //bebida.setLocationRelativeTo(null);
         dispose();
@@ -135,6 +135,12 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    ArrayList<Pedido> pedidos = new ArrayList<>();
+    ArrayList<Igrediente> ingredientes = new ArrayList<>();
+    ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    ArrayList<Cliente> clientes = new ArrayList<>();
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -165,11 +171,6 @@ public class InterfacePrincipal extends javax.swing.JFrame {
                 new InterfacePrincipal().setVisible(true);
             }
         });
-        ArrayList<Pedido> pedidos = new ArrayList<>();
-        ArrayList<Igrediente> igredientes = new ArrayList<>();
-        ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
-        ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
-        ArrayList<Cliente> clientes = new ArrayList<>();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
