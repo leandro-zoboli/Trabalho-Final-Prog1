@@ -5,7 +5,7 @@ public class Ingrediente {
     private String Nome;
     private double ValorUnitario;
     private double Quantidade;
-
+//;;yufytf
     public String getNome() {
         return Nome;
     }
