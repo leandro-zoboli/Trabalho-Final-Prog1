@@ -5,10 +5,15 @@
  */
 package Interfaces;
 
-import Classes.Igrediente;
+import Classes.Cliente;
+import Classes.Ingrediente;
+import Classes.Pedido;
+import Classes.ProdutoBebida;
 import Classes.ProdutoPizza;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -16,10 +21,31 @@ import java.util.ArrayList;
  */
 public class TelaAddPizza extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Produtos
-     */
     public TelaAddPizza() {
+        initComponents();
+    }
+
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+
+    TelaAddPizza(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+        this.pedidos = pedidos;
+        this.ingredientes = ingredientes;
+        this.bebidas = bebidas;
+        this.pizzas = pizzas;
+        this.clientes = clientes;
+        combo_ingredientes = new JComboBox();
+        String listaDeIngredientes = "";
+        for (Ingrediente ingrediente : this.ingredientes) {
+            if (listaDeIngredientes == "") {
+                combo_ingredientes.addItem(ingrediente.getNome());
+            }
+        }
+       
+
         initComponents();
     }
 
@@ -35,7 +61,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tf_Nome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        combo_igredientes = new javax.swing.JComboBox<>();
+        combo_ingredientes = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         btn_AddIgrediente = new javax.swing.JButton();
@@ -50,7 +76,11 @@ public class TelaAddPizza extends javax.swing.JFrame {
 
         jLabel2.setText("Igrediente");
 
-        combo_igredientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_ingredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_ingredientesActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Qtd (Kg)");
 
@@ -96,7 +126,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(combo_igredientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combo_ingredientes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tf_Nome, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +159,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(combo_igredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(combo_ingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -152,7 +182,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        InterfacePrincipal principal = new InterfacePrincipal();
+        InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
         dispose();
@@ -165,8 +195,10 @@ public class TelaAddPizza extends javax.swing.JFrame {
             }
             ProdutoPizza pizza = new ProdutoPizza();
             pizza.setNome(tf_Nome.getText());
+            pizzas.add(pizza);
+
             JOptionPane.showMessageDialog(this, "Pizza cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            InterfacePrincipal principal = new InterfacePrincipal();
+            InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
             dispose();
@@ -174,6 +206,10 @@ public class TelaAddPizza extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Um ou mais campos não foram preenchidos corretamente", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_CadastrarActionPerformed
+
+    private void combo_ingredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ingredientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combo_ingredientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,7 +257,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
     private javax.swing.JButton btn_AddIgrediente;
     private javax.swing.JButton btn_Cadastrar;
     private javax.swing.JButton btn_Cancelar;
-    private javax.swing.JComboBox<String> combo_igredientes;
+    private javax.swing.JComboBox<String> combo_ingredientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
