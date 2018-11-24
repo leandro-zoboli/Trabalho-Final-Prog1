@@ -5,6 +5,14 @@ public class ProdutoBebida extends Produto {
 
     private float Volume;
     private String Embalagem;
+
+    public String getEmbalagem() {
+        return Embalagem;
+    }
+
+    public void setEmbalagem(String Embalagem) {
+        this.Embalagem = Embalagem;
+    }
     private enum Embalagem {
         lata, garrafaDeVidro, garrafaPlastica, caixa, outros;
     }

@@ -5,16 +5,35 @@
  */
 package Interfaces;
 
+import Classes.Cliente;
+import Classes.Ingrediente;
+import Classes.Pedido;
+import Classes.ProdutoBebida;
+import Classes.ProdutoPizza;
+import java.util.ArrayList;
+
 /**
  *
  * @author vhelmbrecht
  */
 public class TelaRelatorio extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Relatório
-     */
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    //aaaaaa
     public TelaRelatorio() {
+        initComponents();
+    }
+
+    TelaRelatorio(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+        this.pedidos = pedidos;
+        this.ingredientes = ingredientes;
+        this.bebidas = bebidas;
+        this.pizzas = pizzas;
+        this.clientes = clientes;
         initComponents();
     }
 

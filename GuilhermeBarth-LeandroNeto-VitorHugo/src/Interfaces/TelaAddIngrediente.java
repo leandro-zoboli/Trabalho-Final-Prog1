@@ -5,7 +5,12 @@
  */
 package Interfaces;
 
-import Classes.Igrediente;
+import Classes.Cliente;
+import Classes.Ingrediente;
+import Classes.Pedido;
+import Classes.ProdutoBebida;
+import Classes.ProdutoPizza;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,10 +19,22 @@ import javax.swing.JOptionPane;
  */
 public class TelaAddIngrediente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Ingredientes
-     */
     public TelaAddIngrediente() {
+        initComponents();
+    }
+
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    
+    TelaAddIngrediente(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+        this.pedidos = pedidos;
+        this.ingredientes = ingredientes;
+        this.bebidas = bebidas;
+        this.pizzas = pizzas;
+        this.clientes = clientes;
         initComponents();
     }
 
@@ -119,7 +136,7 @@ public class TelaAddIngrediente extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_NomeActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        InterfacePrincipal principal = new InterfacePrincipal();
+        InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
         dispose();
@@ -130,11 +147,12 @@ public class TelaAddIngrediente extends javax.swing.JFrame {
             if (tf_Valor.getText().equals("") || tf_Nome.getText().equals("")) {
                 throw new Exception();
             }
-            Igrediente igrediente = new Igrediente();
+            Ingrediente igrediente = new Ingrediente();
             igrediente.setNome(tf_Nome.getText());
             igrediente.setCustoUnitario(Float.parseFloat(tf_Valor.getText()));
+            ingredientes.add(igrediente);
             JOptionPane.showMessageDialog(this, "Igrediente cadastrado com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            InterfacePrincipal principal = new InterfacePrincipal();
+            InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
             dispose();

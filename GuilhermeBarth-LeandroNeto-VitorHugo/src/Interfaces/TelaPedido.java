@@ -5,16 +5,35 @@
  */
 package Interfaces;
 
+import Classes.Cliente;
+import Classes.Ingrediente;
+import Classes.Pedido;
+import Classes.ProdutoBebida;
+import Classes.ProdutoPizza;
+import java.util.ArrayList;
+
 /**
  *
  * @author vhelmbrecht
  */
 public class TelaPedido extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Pedido
-     */
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    
     public TelaPedido() {
+        initComponents();
+    }
+
+    TelaPedido(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+        this.pedidos = pedidos;
+        this.ingredientes = ingredientes;
+        this.bebidas = bebidas;
+        this.pizzas = pizzas;
+        this.clientes = clientes;
         initComponents();
     }
 
@@ -261,17 +280,17 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_ValorTotalActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        InterfacePrincipal principal = new InterfacePrincipal();
+        InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ConfirmarActionPerformed
-        TelaExtrato extrato = new TelaExtrato();
-        extrato.setVisible(true);
-        extrato.setLocationRelativeTo(null);
-        dispose();
+      //  TelaExtrato extrato = new TelaExtrato(pedidos, ingredientes, bebidas, pizzas, clientes);
+       // extrato.setVisible(true);
+       // extrato.setLocationRelativeTo(null);
+       // dispose();
     }//GEN-LAST:event_btn_ConfirmarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

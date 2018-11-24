@@ -4,24 +4,24 @@ import java.util.ArrayList;
 
 public class ProdutoPizza extends Produto {
 
-    private ArrayList<Igrediente> igredientes = new ArrayList<>();
+    private ArrayList<Ingrediente> igredientes = new ArrayList<>();
 
     private enum Tamanho {
         pequena, media, grande;
     }
 
-    public ArrayList<Igrediente> getIgredientes() {
+    public ArrayList<Ingrediente> getIgredientes() {
         return igredientes;
     }
 
-    public void setIgredientes(ArrayList<Igrediente> igredientes) {
+    public void setIgredientes(ArrayList<Ingrediente> igredientes) {
         this.igredientes = igredientes;
     }
 
     public double getValorTotal() {
         try {
             float retorno = 0;
-            for (Igrediente i : igredientes) {
+            for (Ingrediente i : igredientes) {
                 retorno += i.GetCustoItem();
             }
             return retorno;

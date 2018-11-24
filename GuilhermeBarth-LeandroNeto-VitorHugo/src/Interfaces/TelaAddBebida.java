@@ -6,7 +6,7 @@
 package Interfaces;
 
 import Classes.Cliente;
-import Classes.Igrediente;
+import Classes.Ingrediente;
 import Classes.Pedido;
 import Classes.ProdutoBebida;
 import Classes.ProdutoPizza;
@@ -24,13 +24,18 @@ public class TelaAddBebida extends javax.swing.JFrame {
     /**
      * Creates new form TelaAddBebida
      */
-    static ArrayList<Pedido> pedidos = new ArrayList<>();
-    static ArrayList<Igrediente> ingredientes = new ArrayList<>();
-    static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
-    static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
-    static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
 
-    public TelaAddBebida(ArrayList<Pedido> pedidos, ArrayList<Igrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+    public TelaAddBebida(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+        this.bebidas = bebidas;
+        this.pedidos = pedidos;
+        this.ingredientes = ingredientes;
+        this.pizzas = pizzas;
+        this.clientes = clientes;
         initComponents();
     }
 
@@ -166,35 +171,32 @@ public class TelaAddBebida extends javax.swing.JFrame {
 
     private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
         try {
-            if (bebidas.isEmpty()) {
-
-            }
+            
             if (tf_Volume.getText().equals("") || tf_Custo.getText().equals("") || tf_Nome.getText().equals("")) {
                 throw new Exception();
             }
-            String a = String.valueOf(combo_Embalagens.getSelectedItem());
+            String embalagem = String.valueOf(combo_Embalagens.getSelectedItem());
+            
             ProdutoBebida bebida = new ProdutoBebida();
             bebida.setNome(tf_Nome.getText());
+            bebida.setEmbalagem(embalagem);
             bebida.setVolume(Float.parseFloat(tf_Volume.getText()));
             bebida.setValorBase(Double.parseDouble(tf_Custo.getText()));
             bebidas.add(bebida);
-
+            
             JOptionPane.showMessageDialog(this, "Bebida cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            InterfacePrincipal principal = new InterfacePrincipal();
+            InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
             dispose();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Um ou mais campos não foram preenchidos corretamente", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_CadastrarActionPerformed
 
     private void combo_EmbalagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_EmbalagensActionPerformed
-        PopupMenu caixa = null;
-        caixa.add("Caixa");
-        caixa.add("xesque");
-        combo_Embalagens.add(caixa);
-
+        
     }//GEN-LAST:event_combo_EmbalagensActionPerformed
 
     /**

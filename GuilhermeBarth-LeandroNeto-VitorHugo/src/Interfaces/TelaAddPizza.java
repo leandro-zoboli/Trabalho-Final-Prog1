@@ -43,9 +43,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
             if (listaDeIngredientes == "") {
                 combo_ingredientes.addItem(ingrediente.getNome());
             }
-        }
-       
-
+        }       
         initComponents();
     }
 

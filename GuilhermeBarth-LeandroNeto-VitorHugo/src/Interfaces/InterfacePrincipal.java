@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Classes.Igrediente;
+import Classes.Ingrediente;
 import Classes.Pedido;
 import Classes.ProdutoBebida;
 import Classes.ProdutoPizza;
@@ -12,6 +12,21 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     public InterfacePrincipal() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+
+    private static ArrayList<Pedido> pedidos = new ArrayList<>();
+    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    
+    InterfacePrincipal(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+        this.pedidos = pedidos;
+        this.ingredientes = ingredientes;
+        this.bebidas = bebidas;
+        this.pizzas = pizzas;
+        this.clientes = clientes;
+        initComponents();
     }
 
     @SuppressWarnings("unchecked")
@@ -98,28 +113,28 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSairActionPerformed
-        TelaRelatorio relatorio = new TelaRelatorio();
+        TelaRelatorio relatorio = new TelaRelatorio(pedidos, ingredientes, bebidas, pizzas, clientes);
         relatorio.setVisible(true);
         relatorio.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_BtSairActionPerformed
 
     private void BtPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtPedidoActionPerformed
-        TelaPedido pedido = new TelaPedido();
+        TelaPedido pedido = new TelaPedido(pedidos, ingredientes, bebidas, pizzas, clientes);
         pedido.setVisible(true);
         pedido.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_BtPedidoActionPerformed
 
     private void BtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtProdutoActionPerformed
-        TelaAddPizza produto = new TelaAddPizza();
+        TelaAddPizza produto = new TelaAddPizza(pedidos, ingredientes, bebidas, pizzas, clientes);
         produto.setVisible(true);
         produto.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_BtProdutoActionPerformed
 
     private void BtIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtIngredienteActionPerformed
-        TelaAddIngrediente ingrediente = new TelaAddIngrediente();
+        TelaAddIngrediente ingrediente = new TelaAddIngrediente(pedidos, ingredientes, bebidas, pizzas, clientes);
         ingrediente.setVisible(true);
         ingrediente.setLocationRelativeTo(null);
         dispose();
@@ -135,11 +150,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    ArrayList<Pedido> pedidos = new ArrayList<>();
-    ArrayList<Igrediente> ingredientes = new ArrayList<>();
-    ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
-    ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
-    ArrayList<Cliente> clientes = new ArrayList<>();
+    
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
