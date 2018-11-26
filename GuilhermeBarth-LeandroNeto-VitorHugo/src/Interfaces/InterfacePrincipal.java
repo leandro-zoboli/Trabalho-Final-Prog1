@@ -5,6 +5,7 @@ import Classes.Pedido;
 import Classes.ProdutoBebida;
 import Classes.ProdutoPizza;
 import Classes.Cliente;
+import Classes.Produto;
 import java.util.ArrayList;
 
 public class InterfacePrincipal extends javax.swing.JFrame {
@@ -120,7 +121,14 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BtSairActionPerformed
 
     private void BtPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtPedidoActionPerformed
-        TelaPedido pedido = new TelaPedido(pedidos, ingredientes, bebidas, pizzas, clientes);
+        ArrayList<Produto> produtos = new ArrayList<>();
+        for (ProdutoBebida i : this.bebidas){
+            produtos.add(i);
+        }
+         for (ProdutoPizza i : this.pizzas){
+            produtos.add(i);
+        }
+        TelaPedido pedido = new TelaPedido(pedidos, ingredientes, bebidas, pizzas, clientes, produtos);
         pedido.setVisible(true);
         pedido.setLocationRelativeTo(null);
         dispose();
@@ -143,7 +151,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     private void btn_AddBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddBebidaActionPerformed
         TelaAddBebida bebida = new TelaAddBebida(pedidos, ingredientes, bebidas, pizzas, clientes);
         bebida.setVisible(true);
-        //bebida.setLocationRelativeTo(null);
+        bebida.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_btn_AddBebidaActionPerformed
 

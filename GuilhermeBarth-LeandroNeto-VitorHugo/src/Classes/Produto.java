@@ -5,9 +5,8 @@ import java.util.ArrayList;
 public class Produto {
 
     private String Nome;
-    private double ValorBase;
     private int Quantidade;
-    public ArrayList<ProdutoBebida> listaDeBebidas = new ArrayList();
+    private double ValorBase;
     
     public String getNome() {
         return Nome;
@@ -15,14 +14,6 @@ public class Produto {
 
     public void setNome(String Nome) {
         this.Nome = Nome;
-    }
-
-    public int getQuantidade() {
-        return Quantidade;
-    }
-
-    public void setQuantidade(int Quantidade) {
-        this.Quantidade = Quantidade;
     }
 
     public double getValorBase() {
@@ -37,6 +28,14 @@ public class Produto {
         double retorno = 0;
         retorno = ValorBase * 0.90;
         return retorno;
+    }
+
+    public int getQuantidade() {
+        return Quantidade;
+    }
+
+    public void setQuantidade(int Quantidade) {
+        this.Quantidade = Quantidade;
     }
 
 }
