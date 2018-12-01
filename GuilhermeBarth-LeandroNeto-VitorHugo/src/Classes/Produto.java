@@ -7,6 +7,7 @@ public class Produto {
     private String Nome;
     private int Quantidade;
     private double ValorBase;
+    private int IndiceNaTabela;
     
     public String getNome() {
         return Nome;
@@ -37,5 +38,15 @@ public class Produto {
     public void setQuantidade(int Quantidade) {
         this.Quantidade = Quantidade;
     }
+
+    public int getIndiceNaTabela() {
+        return IndiceNaTabela;
+    }
+
+    public void setIndiceNaTabela(int IndiceNaTabela) {
+        this.IndiceNaTabela = IndiceNaTabela;
+    }
+    
+    
 
 }
