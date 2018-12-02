@@ -164,33 +164,42 @@ public class TelaAddBebida extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
+        boolean necessitaMostrarMensagem = true;
         try {
-            
+            for (ProdutoBebida b : bebidas) {
+                if (b.getNome().equals(tf_Nome.getText())) {
+                    JOptionPane.showMessageDialog(this, "Já existe uma bebida com este nome", "Erro", JOptionPane.WARNING_MESSAGE);
+                    necessitaMostrarMensagem = false;
+                    throw new Exception();
+                }
+            }
             if (tf_Volume.getText().equals("") || tf_Custo.getText().equals("") || tf_Nome.getText().equals("")) {
                 throw new Exception();
             }
             String embalagem = String.valueOf(combo_Embalagens.getSelectedItem());
-            
+
             ProdutoBebida bebida = new ProdutoBebida();
             bebida.setNome(tf_Nome.getText());
             bebida.setEmbalagem(embalagem);
             bebida.setVolume(Float.parseFloat(tf_Volume.getText()));
             bebida.setValorBase(Double.parseDouble(tf_Custo.getText()));
             bebidas.add(bebida);
-            
+
             JOptionPane.showMessageDialog(this, "Bebida cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
             dispose();
-            
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Um ou mais campos não foram preenchidos corretamente", "Erro", JOptionPane.WARNING_MESSAGE);
+            if (necessitaMostrarMensagem) {
+                JOptionPane.showMessageDialog(this, "Um ou mais campos não foram preenchidos corretamente", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btn_CadastrarActionPerformed
 
     private void combo_EmbalagensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_EmbalagensActionPerformed
-        
+
     }//GEN-LAST:event_combo_EmbalagensActionPerformed
 
     /**

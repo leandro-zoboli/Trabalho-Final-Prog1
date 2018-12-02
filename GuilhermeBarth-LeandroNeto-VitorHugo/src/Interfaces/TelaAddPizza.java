@@ -244,6 +244,11 @@ public class TelaAddPizza extends javax.swing.JFrame {
             }
             ProdutoPizza pizza = new ProdutoPizza();
             pizza.setNome(tf_Nome.getText());
+            double valorBase = 0.0;
+            for (Ingrediente i : ingredientes) {
+                valorBase += i.GetCustoItem();
+            }
+            pizza.setValorBase(valorBase);
             pizzas.add(pizza);
 
             JOptionPane.showMessageDialog(this, "Pizza cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -261,32 +266,41 @@ public class TelaAddPizza extends javax.swing.JFrame {
     }//GEN-LAST:event_combo_ingredientesActionPerformed
 
     private void btn_AddIgredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddIgredienteActionPerformed
+        boolean necessitaMostrarMensagem = true;
         try {
-            if(tf_Qtd.getText().equals("")){
+            for (ProdutoPizza p : pizzas) {
+                if (p.getNome().equals(tf_Nome.getText())) {
+                    JOptionPane.showMessageDialog(this, "Já existe uma pizza com este nome", "Erro", JOptionPane.WARNING_MESSAGE);
+                    necessitaMostrarMensagem = false;
+                    throw new Exception();
+                }
+            }
+
+            if (tf_Qtd.getText().equals("")) {
                 tf_Qtd.setText("0.00");
             }
             String nomeEscolhido = (String) combo_ingredientes.getSelectedItem();
             double quantidadeDigitada = Double.parseDouble(tf_Qtd.getText());
-            
+
             Ingrediente escolhido = null;
-            for (Ingrediente i : ingredientes){
-                if (i.getNome().equals(nomeEscolhido)){
+            for (Ingrediente i : ingredientes) {
+                if (i.getNome().equals(nomeEscolhido)) {
                     escolhido = i;
                 }
             }
-            if(escolhido == null){
+            if (escolhido == null) {
                 throw new Exception();
             }
             escolhido.setQuantidade(quantidadeDigitada);
             boolean ingredienteNovo = true;
-            for (Ingrediente i : pizza.getIngredientes()){
-                if(i.getNome().equals(escolhido.getNome())){
+            for (Ingrediente i : pizza.getIngredientes()) {
+                if (i.getNome().equals(escolhido.getNome())) {
                     ingredienteNovo = false;
                     i.setQuantidade(i.getQuantidade() + quantidadeDigitada);
                 }
             }
-            
-            if (ingredienteNovo){
+
+            if (ingredienteNovo) {
                 pizza.ingredientes.add(escolhido);
             }
             DefaultTableModel modeloTabela = new DefaultTableModel();
@@ -302,7 +316,9 @@ public class TelaAddPizza extends javax.swing.JFrame {
             tf_ValorTotal.setText("R$ " + pizza.getValorTotal());
             tabela_Geral.setModel(modeloTabela);
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o ingrediente na pizza", "Erro", JOptionPane.WARNING_MESSAGE);
+            if (necessitaMostrarMensagem) {
+                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o ingrediente na pizza", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btn_AddIgredienteActionPerformed
 

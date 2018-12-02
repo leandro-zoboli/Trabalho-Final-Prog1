@@ -29,6 +29,7 @@ public class TelaPedido extends javax.swing.JFrame {
     private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<Produto> produtos = new ArrayList<>();
+    private static Pedido pedido = new Pedido();
 
     public TelaPedido() {
         initComponents();
@@ -294,7 +295,7 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_ValorTotalActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        produtos.clear();
+        pedido = new Pedido();
         InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
@@ -337,32 +338,54 @@ public class TelaPedido extends javax.swing.JFrame {
                 throw new Exception();
             }
             Produto produtoSelecionado = null;
+            boolean ehBebida = false;
             if (selecionado_Bebida != null) {
                 produtoSelecionado = (Produto) selecionado_Bebida;
+                ehBebida = true;
             } else {
                 produtoSelecionado = (Produto) selecionado_Pizza;
             }
 
             boolean produtoNovo = true;
-            for (Produto p : produtos) {
-                if (p.getNome().equals(produtoSelecionado.getNome())) {//caso ja exista o produto na lista
+            
+            for (ProdutoBebida bebida : pedido.Bebidas) {
+                if(bebida.getNome().equals(produtoSelecionado.getNome())){
                     produtoNovo = false;
-                    p.setQuantidade(p.getQuantidade() + 1);
+                    bebida.setQuantidade(bebida.getQuantidade() + 1);
+                }
+            }
+
+            for (ProdutoPizza pizza : pedido.Pizzas) {
+                if(pizza.getNome().equals(produtoSelecionado.getNome())){
+                    produtoNovo = false;
+                    pizza.setQuantidade(pizza.getQuantidade() + 1);
                 }
             }
 
             if (produtoNovo) {
-                produtos.add(produtoSelecionado);
+                if (ehBebida) {
+                    selecionado_Bebida.setQuantidade(1);
+                    pedido.Bebidas.add(selecionado_Bebida);
+                } else {
+                    selecionado_Pizza.setQuantidade(1);
+                    pedido.Pizzas.add(selecionado_Pizza);
+                }
             }
             DefaultTableModel modeloTabela = new DefaultTableModel();
             modeloTabela.addColumn("Nome");
             modeloTabela.addColumn("Unitário");
             modeloTabela.addColumn("Quantidade");
             modeloTabela.addColumn("Total");
-            for (int i = 0; i < produtos.size(); i++) {
-                Produto temp = produtos.get(i);
-                modeloTabela.addRow(temp.RetornaFormatoTabela());
+
+            for (ProdutoBebida bebida : pedido.Bebidas) {
+                modeloTabela.addRow(bebida.RetornaFormatoTabela());
             }
+
+            for (ProdutoPizza pizza : pedido.Pizzas) {
+                modeloTabela.addRow(pizza.RetornaFormatoTabela());
+            }
+
+            tf_ValorTotal.setText("R$ " + pedido.GetValorTotalPedido());
             tabela_Geral.setModel(modeloTabela);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o produto ao pedido", "Erro", JOptionPane.WARNING_MESSAGE);

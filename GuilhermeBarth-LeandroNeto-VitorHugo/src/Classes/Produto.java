@@ -1,5 +1,6 @@
 package Classes;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Produto {
@@ -7,7 +8,7 @@ public class Produto {
     private String Nome;
     private int Quantidade;
     private double ValorBase;
-    
+
     public String getNome() {
         return Nome;
     }
@@ -29,7 +30,7 @@ public class Produto {
         retorno = (ValorBase * 1.90);
         return retorno;
     }
-    
+
     public double GetValorVenda() {
         double retorno = 0;
         retorno = (ValorBase * 1.90) * this.getQuantidade();
@@ -44,8 +45,7 @@ public class Produto {
         this.Quantidade = Quantidade;
     }
 
-    
-    public String[] RetornaFormatoTabela(){
+    public String[] RetornaFormatoTabela() {
         String[] retorno = new String[4];
         retorno[0] = this.getNome();
         retorno[1] = "" + this.GetValorVendaUnitario();

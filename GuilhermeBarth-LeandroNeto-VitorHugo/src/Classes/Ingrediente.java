@@ -1,5 +1,7 @@
 package Classes;
 
+import java.text.DecimalFormat;
+
 public class Ingrediente {
 
     private String Nome;

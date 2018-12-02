@@ -1,10 +1,13 @@
 
 package Classes;
+import Classes.ProdutoBebida;
+import Classes.ProdutoPizza;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Pedido {
-    private ArrayList<ProdutoBebida> Bebidas = new ArrayList();
-    private ArrayList<ProdutoPizza> Pizzas = new ArrayList<>();
+    public ArrayList<ProdutoBebida> Bebidas = new ArrayList();
+    public ArrayList<ProdutoPizza> Pizzas = new ArrayList<>();
     private Cliente cliente = new Cliente();
     private double ValorTotal;
     private long PedidoID;
@@ -49,5 +52,16 @@ public class Pedido {
         this.PedidoID = PedidoID;
     }
     
-    
+    public double GetValorTotalPedido(){
+        double retorno = 0.0;
+        
+        for(ProdutoBebida bebida : Bebidas){
+            retorno += bebida.GetValorVenda();
+        }
+        
+        for(ProdutoPizza pizza : Pizzas){
+            retorno += pizza.GetValorVenda();
+        }
+        return retorno;
+    }
 }
