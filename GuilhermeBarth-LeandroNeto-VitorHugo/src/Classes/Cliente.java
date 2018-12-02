@@ -6,7 +6,7 @@ public class Cliente {
     private String Nome;
     private String Telefone;
     private String Endereco;
-    private ArrayList<Pedido> Pedidos = new ArrayList<>();
+    public ArrayList<Pedido> Pedidos = new ArrayList<>();
 
     public String getNome() {
         return Nome;

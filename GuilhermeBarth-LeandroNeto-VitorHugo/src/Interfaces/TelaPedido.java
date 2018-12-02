@@ -303,10 +303,29 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ConfirmarActionPerformed
-        //  TelaExtrato extrato = new TelaExtrato(pedidos, ingredientes, bebidas, pizzas, clientes);
-        // extrato.setVisible(true);
-        // extrato.setLocationRelativeTo(null);
-        // dispose();
+        boolean mostrarErro = true;
+        try {
+            if (tf_NomeCliente.getText().equals("") || tf_Telefone.getText().equals("") || tf_Endereco.getText().equals("")) {
+                mostrarErro = false;
+                JOptionPane.showMessageDialog(this, "Um ou mais campos do cliente estão em branco, favor preencher", "Erro", JOptionPane.WARNING_MESSAGE);
+                throw new Exception();
+            }
+
+            Cliente cliente = new Cliente();
+            cliente.setNome(tf_NomeCliente.getText());
+            cliente.setEndereco(tf_Endereco.getText());
+            cliente.setTelefone(tf_Telefone.getText());
+            cliente.Pedidos.add(pedido);
+            clientes.add(cliente);
+            //  TelaExtrato extrato = new TelaExtrato(pedidos, ingredientes, bebidas, pizzas, clientes);
+            // extrato.setVisible(true);
+            // extrato.setLocationRelativeTo(null);
+            // dispose();
+        } catch (Exception erro) {
+            if (mostrarErro) {
+                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o produto ao pedido", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btn_ConfirmarActionPerformed
 
     private void combo_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ProdutosActionPerformed
@@ -347,16 +366,16 @@ public class TelaPedido extends javax.swing.JFrame {
             }
 
             boolean produtoNovo = true;
-            
+
             for (ProdutoBebida bebida : pedido.Bebidas) {
-                if(bebida.getNome().equals(produtoSelecionado.getNome())){
+                if (bebida.getNome().equals(produtoSelecionado.getNome())) {
                     produtoNovo = false;
                     bebida.setQuantidade(bebida.getQuantidade() + 1);
                 }
             }
 
             for (ProdutoPizza pizza : pedido.Pizzas) {
-                if(pizza.getNome().equals(produtoSelecionado.getNome())){
+                if (pizza.getNome().equals(produtoSelecionado.getNome())) {
                     produtoNovo = false;
                     pizza.setQuantidade(pizza.getQuantidade() + 1);
                 }
