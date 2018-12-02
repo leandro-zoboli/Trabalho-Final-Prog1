@@ -8,6 +8,7 @@ package Interfaces;
 import Classes.Cliente;
 import Classes.Ingrediente;
 import Classes.Pedido;
+import Classes.Produto;
 import Classes.ProdutoBebida;
 import Classes.ProdutoPizza;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,6 +33,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
     private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
     private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
     private static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static ProdutoPizza pizza = new ProdutoPizza();
 
     TelaAddPizza(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
         this.pedidos = pedidos;
@@ -74,14 +77,14 @@ public class TelaAddPizza extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         combo_ingredientes = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tf_Qtd = new javax.swing.JTextField();
         btn_AddIgrediente = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         tf_ValorTotal = new javax.swing.JTextField();
         btn_Cancelar = new javax.swing.JButton();
         btn_Cadastrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela_Geral = new javax.swing.JTable();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -103,13 +106,18 @@ public class TelaAddPizza extends javax.swing.JFrame {
 
         jLabel3.setText("Qtd (Kg)");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tf_Qtd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tf_QtdActionPerformed(evt);
             }
         });
 
         btn_AddIgrediente.setText("Adicionar Igrediente");
+        btn_AddIgrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AddIgredienteActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Valor Total da pizza");
 
@@ -129,15 +137,12 @@ public class TelaAddPizza extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_Geral.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Igrediente", "Quantidade", "Custo unitário", "Custo item"
+                "Ingrediente", "Quantidade", "Custo unitário", "Custo item"
             }
         ) {
             Class[] types = new Class [] {
@@ -155,7 +160,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela_Geral);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,7 +184,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tf_Qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tf_Nome)))
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
@@ -205,7 +210,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(combo_ingredientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_Qtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_Cancelar)
                     .addComponent(btn_AddIgrediente))
                 .addGap(18, 18, 18)
@@ -220,11 +225,12 @@ public class TelaAddPizza extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tf_QtdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_QtdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tf_QtdActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        pizza.ingredientes.clear();
         InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
@@ -253,6 +259,52 @@ public class TelaAddPizza extends javax.swing.JFrame {
     private void combo_ingredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ingredientesActionPerformed
 
     }//GEN-LAST:event_combo_ingredientesActionPerformed
+
+    private void btn_AddIgredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddIgredienteActionPerformed
+        try {
+            if(tf_Qtd.getText().equals("")){
+                tf_Qtd.setText("0.00");
+            }
+            String nomeEscolhido = (String) combo_ingredientes.getSelectedItem();
+            double quantidadeDigitada = Double.parseDouble(tf_Qtd.getText());
+            
+            Ingrediente escolhido = null;
+            for (Ingrediente i : ingredientes){
+                if (i.getNome().equals(nomeEscolhido)){
+                    escolhido = i;
+                }
+            }
+            if(escolhido == null){
+                throw new Exception();
+            }
+            escolhido.setQuantidade(quantidadeDigitada);
+            boolean ingredienteNovo = true;
+            for (Ingrediente i : pizza.getIngredientes()){
+                if(i.getNome().equals(escolhido.getNome())){
+                    ingredienteNovo = false;
+                    i.setQuantidade(i.getQuantidade() + quantidadeDigitada);
+                }
+            }
+            
+            if (ingredienteNovo){
+                pizza.ingredientes.add(escolhido);
+            }
+            DefaultTableModel modeloTabela = new DefaultTableModel();
+            modeloTabela.addColumn("Ingrediente");
+            modeloTabela.addColumn("Quantidade");
+            modeloTabela.addColumn("Custo unitário");
+            modeloTabela.addColumn("Custo item");
+            for (int i = 0; i < pizza.ingredientes.size(); i++) {
+                Ingrediente temp = pizza.ingredientes.get(i);
+                modeloTabela.addRow(temp.RetornaModeloTabela());
+            }
+            tf_Qtd.setText("");
+            tf_ValorTotal.setText("R$ " + pizza.getValorTotal());
+            tabela_Geral.setModel(modeloTabela);
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o ingrediente na pizza", "Erro", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_AddIgredienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -306,12 +358,12 @@ public class TelaAddPizza extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private java.awt.Menu menu1;
     private java.awt.Menu menu2;
     private java.awt.MenuBar menuBar1;
+    private javax.swing.JTable tabela_Geral;
     private javax.swing.JTextField tf_Nome;
+    private javax.swing.JTextField tf_Qtd;
     private javax.swing.JTextField tf_ValorTotal;
     // End of variables declaration//GEN-END:variables
 }

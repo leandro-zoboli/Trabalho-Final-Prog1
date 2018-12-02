@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,7 +29,6 @@ public class TelaPedido extends javax.swing.JFrame {
     private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<Produto> produtos = new ArrayList<>();
-    private static int UltimoIndiceNaTabela = 0;
 
     public TelaPedido() {
         initComponents();
@@ -175,10 +175,7 @@ public class TelaPedido extends javax.swing.JFrame {
 
         tabela_Geral.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Produto", "Unitário", "Quantidade", "Total"
@@ -297,6 +294,7 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_ValorTotalActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        produtos.clear();
         InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
@@ -344,39 +342,28 @@ public class TelaPedido extends javax.swing.JFrame {
             } else {
                 produtoSelecionado = (Produto) selecionado_Pizza;
             }
+
             boolean produtoNovo = true;
-            int qtd = 1;
-            double valorTotal = produtoSelecionado.GetValorVenda();
             for (Produto p : produtos) {
                 if (p.getNome().equals(produtoSelecionado.getNome())) {//caso ja exista o produto na lista
                     produtoNovo = false;
                     p.setQuantidade(p.getQuantidade() + 1);
-                    qtd++;
-                    valorTotal = p.GetValorVenda();
                 }
             }
-            String nome = produtoSelecionado.getNome();
-            String valorBase = "" + produtoSelecionado.getValorBase();
-            String Quantidade = "" + qtd;
-            String valorTotalS = "" + valorTotal;
-            if (produtoNovo) {
-                //tabela_Geral.setValueAt(nome, UltimoIndiceNaTabela, 1);
-                //tabela_Geral.setValueAt(valorBase, UltimoIndiceNaTabela, 2);
-                //tabela_Geral.setValueAt(Quantidade, UltimoIndiceNaTabela, 3);
-                //tabela_Geral.setValueAt(valorTotalS, UltimoIndiceNaTabela, 4);
-            } else {
-                //tabela_Geral.setValueAt(nome, produtoSelecionado.getIndiceNaTabela(), 1);
-                //tabela_Geral.setValueAt(valorBase, produtoSelecionado.getIndiceNaTabela(), 2);
-                //tabela_Geral.setValueAt(Quantidade, produtoSelecionado.getIndiceNaTabela(), 3);
-                //tabela_Geral.setValueAt(valorTotalS, produtoSelecionado.getIndiceNaTabela(), 4);
-            }
 
             if (produtoNovo) {
-                produtoSelecionado.setIndiceNaTabela(UltimoIndiceNaTabela);
                 produtos.add(produtoSelecionado);
             }
-            UltimoIndiceNaTabela++;
-
+            DefaultTableModel modeloTabela = new DefaultTableModel();
+            modeloTabela.addColumn("Nome");
+            modeloTabela.addColumn("Unitário");
+            modeloTabela.addColumn("Quantidade");
+            modeloTabela.addColumn("Total");
+            for (int i = 0; i < produtos.size(); i++) {
+                Produto temp = produtos.get(i);
+                modeloTabela.addRow(temp.RetornaFormatoTabela());
+            }
+            tabela_Geral.setModel(modeloTabela);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o produto ao pedido", "Erro", JOptionPane.WARNING_MESSAGE);
         }

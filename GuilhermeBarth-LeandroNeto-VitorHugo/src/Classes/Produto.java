@@ -7,7 +7,6 @@ public class Produto {
     private String Nome;
     private int Quantidade;
     private double ValorBase;
-    private int IndiceNaTabela;
     
     public String getNome() {
         return Nome;
@@ -25,9 +24,15 @@ public class Produto {
         this.ValorBase = ValorBase;
     }
 
+    public double GetValorVendaUnitario() {
+        double retorno = 0;
+        retorno = (ValorBase * 1.90);
+        return retorno;
+    }
+    
     public double GetValorVenda() {
         double retorno = 0;
-        retorno = ValorBase * 0.90;
+        retorno = (ValorBase * 1.90) * this.getQuantidade();
         return retorno;
     }
 
@@ -39,14 +44,14 @@ public class Produto {
         this.Quantidade = Quantidade;
     }
 
-    public int getIndiceNaTabela() {
-        return IndiceNaTabela;
-    }
-
-    public void setIndiceNaTabela(int IndiceNaTabela) {
-        this.IndiceNaTabela = IndiceNaTabela;
-    }
     
-    
+    public String[] RetornaFormatoTabela(){
+        String[] retorno = new String[4];
+        retorno[0] = this.getNome();
+        retorno[1] = "" + this.GetValorVendaUnitario();
+        retorno[2] = "" + this.getQuantidade();
+        retorno[3] = "" + this.GetValorVenda();
+        return retorno;
+    }
 
 }

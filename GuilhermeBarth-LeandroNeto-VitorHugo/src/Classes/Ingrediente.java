@@ -18,7 +18,7 @@ public class Ingrediente {
         return ValorUnitario;
     }
 
-    public void setCustoUnitario(float CustoUnitario) {
+    public void setCustoUnitario(double CustoUnitario) {
         this.ValorUnitario = CustoUnitario;
     }
 
@@ -26,7 +26,7 @@ public class Ingrediente {
         return Quantidade;
     }
 
-    public void setQuantidade(float Quantidade) {
+    public void setQuantidade(double Quantidade) {
         this.Quantidade = Quantidade;
     }
 
@@ -38,5 +38,14 @@ public class Ingrediente {
         } catch(Exception e){
             throw new IllegalArgumentException("Ocorreu um erro ao calcular o custo do item. Erro: " + e.getMessage());
         }
+    }
+    
+    public String[] RetornaModeloTabela(){
+        String[] retorno = new String[4];
+        retorno[0] = this.getNome();
+        retorno[1] = this.getQuantidade() + " kg";
+        retorno[2] = "R$ " + this.getCustoUnitario();
+        retorno[3] = "R$ " + this.GetCustoItem();
+        return retorno;
     }
 }

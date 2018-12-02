@@ -23,10 +23,10 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     
     InterfacePrincipal(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
         this.pedidos = pedidos;
-        this.ingredientes = ingredientes;
         this.bebidas = bebidas;
         this.pizzas = pizzas;
         this.clientes = clientes;
+        this.ingredientes = ingredientes;
         initComponents();
     }
 
