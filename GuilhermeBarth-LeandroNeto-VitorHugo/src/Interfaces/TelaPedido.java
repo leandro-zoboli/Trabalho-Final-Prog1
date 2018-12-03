@@ -29,7 +29,7 @@ public class TelaPedido extends javax.swing.JFrame {
     private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<Produto> produtos = new ArrayList<>();
-    private static Pedido pedido = new Pedido();
+    private static Pedido pedido = new Pedido(pedidos.size() + 1);
 
     public TelaPedido() {
         initComponents();
@@ -295,7 +295,6 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_ValorTotalActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        pedido = new Pedido();
         InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
@@ -310,10 +309,14 @@ public class TelaPedido extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Um ou mais campos do cliente estão em branco, favor preencher", "Erro", JOptionPane.WARNING_MESSAGE);
                 throw new Exception();
             }
-            Cliente cliente = new Cliente(tf_NomeCliente.getText(),tf_Telefone.getText(), tf_Endereco.getText());
-            pedidos.add(new Pedido(cliente, Double.parseDouble(tf_ValorTotal.getText())));
-            JOptionPane.showMessageDialog(this, "Pedido feito com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            
+            Cliente cliente = new Cliente(tf_NomeCliente.getText(), tf_Telefone.getText(), tf_Endereco.getText());
+            pedido.setCliente(cliente);
+            pedidos.add(pedido);
+            JOptionPane.showMessageDialog(this, "Pedido feito com sucesso! Deseja cadastrara outro pedido?", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            TelaResumoPedido principal = new TelaResumoPedido(pedido);
+            principal.setVisible(true);
+            principal.setLocationRelativeTo(null);
+            dispose();
         } catch (Exception erro) {
             if (mostrarErro) {
                 JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o produto ao pedido", "Erro", JOptionPane.WARNING_MESSAGE);

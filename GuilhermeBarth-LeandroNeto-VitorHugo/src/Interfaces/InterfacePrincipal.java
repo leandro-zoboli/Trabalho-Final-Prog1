@@ -114,7 +114,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSairActionPerformed
-        TelaRelatorio relatorio = new TelaRelatorio(pedidos, ingredientes, bebidas, pizzas, clientes);
+        TelaExtrato relatorio = new TelaExtrato(pedidos, ingredientes, bebidas, pizzas, clientes);
         relatorio.setVisible(true);
         relatorio.setLocationRelativeTo(null);
         dispose();

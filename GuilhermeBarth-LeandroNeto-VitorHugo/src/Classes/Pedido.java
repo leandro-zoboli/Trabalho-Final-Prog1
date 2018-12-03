@@ -17,8 +17,8 @@ public class Pedido {
         this.ValorTotal = ValorTotal;
     }
     
-    public Pedido(){
-        
+    public Pedido(long PedidoID){
+        this.PedidoID = PedidoID;
     }
 
     public ArrayList<ProdutoBebida> getBebidas() {
@@ -71,6 +71,15 @@ public class Pedido {
         for(ProdutoPizza pizza : Pizzas){
             retorno += pizza.GetValorVenda();
         }
+        return retorno;
+    }
+    
+    public String[] RetornaFormatoTabela(){
+        String[] retorno = new String[4];
+        retorno[0] = this.getPedidoID() + "";
+        retorno[1] = this.cliente.getNome();
+        retorno[2] = this.cliente.getTelefone();
+        retorno[3] = this.GetValorTotalPedido() + "";
         return retorno;
     }
 }

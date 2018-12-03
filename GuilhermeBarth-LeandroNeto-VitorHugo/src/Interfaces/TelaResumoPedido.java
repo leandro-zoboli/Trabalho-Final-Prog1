@@ -5,36 +5,26 @@
  */
 package Interfaces;
 
-import Classes.Cliente;
-import Classes.Ingrediente;
 import Classes.Pedido;
-import Classes.ProdutoBebida;
-import Classes.ProdutoPizza;
-import java.util.ArrayList;
 
 /**
  *
- * @author vhelmbrecht
+ * @author leandroz
  */
-public class TelaRelatorio extends javax.swing.JFrame {
+public class TelaResumoPedido extends javax.swing.JFrame {
 
-    private static ArrayList<Pedido> pedidos = new ArrayList<>();
-    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
-    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
-    private static ArrayList<Cliente> clientes = new ArrayList<>();
-    //aaaaaa
-    public TelaRelatorio() {
+    private static Pedido pedido = null;
+
+    /**
+     * Creates new form TelaResumoPedido
+     */
+    public TelaResumoPedido(Pedido pedido) {
         initComponents();
+        this.pedido = pedido;
     }
 
-    TelaRelatorio(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
-        this.pedidos = pedidos;
-        this.ingredientes = ingredientes;
-        this.bebidas = bebidas;
-        this.pizzas = pizzas;
-        this.clientes = clientes;
-        initComponents();
+    private TelaResumoPedido() {
+       initComponents();
     }
 
     /**
@@ -46,17 +36,33 @@ public class TelaRelatorio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        tf_Cliente = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(206, 206, 206)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 424, Short.MAX_VALUE)
+                        .addComponent(tf_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel2)
+                .addGap(40, 40, 40)
+                .addComponent(tf_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         pack();
@@ -79,27 +85,26 @@ public class TelaRelatorio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaResumoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaResumoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaResumoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaRelatorio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaResumoPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaRelatorio().setVisible(true);
+                new TelaResumoPedido().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel tf_Cliente;
     // End of variables declaration//GEN-END:variables
 }
