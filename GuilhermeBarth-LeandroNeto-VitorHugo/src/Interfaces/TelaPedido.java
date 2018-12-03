@@ -310,17 +310,10 @@ public class TelaPedido extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Um ou mais campos do cliente estão em branco, favor preencher", "Erro", JOptionPane.WARNING_MESSAGE);
                 throw new Exception();
             }
-
-            Cliente cliente = new Cliente();
-            cliente.setNome(tf_NomeCliente.getText());
-            cliente.setEndereco(tf_Endereco.getText());
-            cliente.setTelefone(tf_Telefone.getText());
-            cliente.Pedidos.add(pedido);
-            clientes.add(cliente);
-            //  TelaExtrato extrato = new TelaExtrato(pedidos, ingredientes, bebidas, pizzas, clientes);
-            // extrato.setVisible(true);
-            // extrato.setLocationRelativeTo(null);
-            // dispose();
+            Cliente cliente = new Cliente(tf_NomeCliente.getText(),tf_Telefone.getText(), tf_Endereco.getText());
+            pedidos.add(new Pedido(cliente, Double.parseDouble(tf_ValorTotal.getText())));
+            JOptionPane.showMessageDialog(this, "Pedido feito com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            
         } catch (Exception erro) {
             if (mostrarErro) {
                 JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o produto ao pedido", "Erro", JOptionPane.WARNING_MESSAGE);

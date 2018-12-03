@@ -8,9 +8,18 @@ import java.util.ArrayList;
 public class Pedido {
     public ArrayList<ProdutoBebida> Bebidas = new ArrayList();
     public ArrayList<ProdutoPizza> Pizzas = new ArrayList<>();
-    private Cliente cliente = new Cliente();
+    private Cliente cliente;
     private double ValorTotal;
     private long PedidoID;
+    
+    public Pedido(Cliente cliente, double ValorTotal){
+        this.cliente = cliente;
+        this.ValorTotal = ValorTotal;
+    }
+    
+    public Pedido(){
+        
+    }
 
     public ArrayList<ProdutoBebida> getBebidas() {
         return Bebidas;

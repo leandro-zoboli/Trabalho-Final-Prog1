@@ -8,6 +8,12 @@ public class Cliente {
     private String Endereco;
     public ArrayList<Pedido> Pedidos = new ArrayList<>();
 
+    public Cliente(String Nome, String Telefone, String Endereco){
+        this.Endereco = Endereco;
+        this.Nome = Nome;
+        this.Telefone = Telefone;
+    }
+    
     public String getNome() {
         return Nome;
     }

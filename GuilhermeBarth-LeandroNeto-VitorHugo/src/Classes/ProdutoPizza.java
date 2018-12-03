@@ -3,9 +3,18 @@ package Classes;
 import java.util.ArrayList;
 
 public class ProdutoPizza extends Produto {
-
     public ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    String Tamanho = "";
 
+    public ProdutoPizza(String Nome, double ValorBase, String Tamanho){
+        super(Nome, ValorBase);
+        this.Tamanho = Tamanho;
+    }
+    
+    public ProdutoPizza(){
+        
+    }
+    
     private enum Tamanho {
         pequena, media, grande;
     }

@@ -9,6 +9,15 @@ public class Produto {
     private int Quantidade;
     private double ValorBase;
 
+    public Produto(String Nome, double ValorBase){
+        this.Nome = Nome;
+        this.ValorBase = ValorBase;
+    }
+    
+    public Produto(){
+        
+    }
+    
     public String getNome() {
         return Nome;
     }
