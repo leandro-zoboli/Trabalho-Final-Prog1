@@ -21,10 +21,12 @@ public class TelaResumoPedido extends javax.swing.JFrame {
     public TelaResumoPedido(Pedido pedido) {
         initComponents();
         this.pedido = pedido;
+        setTitle("Resumo do pedido");
     }
 
     private TelaResumoPedido() {
        initComponents();
+        setTitle("Resumo do pedido");
     }
 
     /**
