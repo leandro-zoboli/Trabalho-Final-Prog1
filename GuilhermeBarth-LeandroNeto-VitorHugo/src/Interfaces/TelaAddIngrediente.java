@@ -144,9 +144,7 @@ public class TelaAddIngrediente extends javax.swing.JFrame {
             if (tf_Valor.getText().equals("") || tf_Nome.getText().equals("")) {
                 throw new Exception();
             }
-            Ingrediente igrediente = new Ingrediente();
-            igrediente.setNome(tf_Nome.getText());
-            igrediente.setCustoUnitario(Double.parseDouble(tf_Valor.getText()));
+            Ingrediente igrediente = new Ingrediente(tf_Nome.getText(), Double.parseDouble(tf_Valor.getText()));
             ingredientes.add(igrediente);
             JOptionPane.showMessageDialog(this, "Igrediente cadastrado com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);

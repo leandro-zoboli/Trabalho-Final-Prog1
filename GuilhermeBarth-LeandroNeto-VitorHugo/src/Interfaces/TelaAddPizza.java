@@ -29,12 +29,13 @@ public class TelaAddPizza extends javax.swing.JFrame {
         setTitle("Cadastro de pizzas");
     }
 
+    DefaultTableModel modeloTabela = new DefaultTableModel();
     private static ArrayList<Pedido> pedidos = new ArrayList<>();
     private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
     private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
     private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
     private static ArrayList<Cliente> clientes = new ArrayList<>();
-    private static ProdutoPizza pizza = new ProdutoPizza();
+    private ProdutoPizza pizza = new ProdutoPizza();
 
     TelaAddPizza(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
         this.pedidos = pedidos;
@@ -44,6 +45,10 @@ public class TelaAddPizza extends javax.swing.JFrame {
         this.clientes = clientes;
         initComponents();
         AdicionaIngredientesNoComboBox();
+        modeloTabela.addColumn("Ingrediente");
+        modeloTabela.addColumn("Quantidade");
+        modeloTabela.addColumn("Custo unitário");
+        modeloTabela.addColumn("Custo item");
         setTitle("Cadastro de pizzas");
     }
 
@@ -77,7 +82,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tf_Nome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        combo_ingredientes = new javax.swing.JComboBox<String>();
+        combo_ingredientes = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         tf_Qtd = new javax.swing.JTextField();
         btn_AddIgrediente = new javax.swing.JButton();
@@ -88,7 +93,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela_Geral = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        CbTamanho = new javax.swing.JComboBox<>();
 
         menu1.setLabel("File");
         menuBar1.add(menu1);
@@ -98,7 +103,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Nome da pizza");
+        jLabel1.setText("Pizza de");
 
         jLabel2.setText("Igrediente");
 
@@ -168,7 +173,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
 
         jLabel5.setText("Tamanho");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pequena", "Média", "Grande", "Gigante" }));
+        CbTamanho.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pequena", "Média", "Grande", "Gigante" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,7 +196,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tf_Nome)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +224,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CbTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -258,17 +263,15 @@ public class TelaAddPizza extends javax.swing.JFrame {
             if (tf_Nome.getText().equals("")) {
                 throw new Exception();
             }
-            ProdutoPizza pizza = new ProdutoPizza();
-            pizza.setNome(tf_Nome.getText());
             double valorBase = 0.0;
             for (Ingrediente i : ingredientes) {
                 valorBase += i.GetCustoItem();
             }
-            pizza.setValorBase(valorBase);
+            ProdutoPizza pizza = new ProdutoPizza(tf_Nome.getText(), valorBase, CbTamanho.getSelectedItem().toString(), ingredientes);
             pizzas.add(pizza);
 
             JOptionPane.showMessageDialog(this, "Pizza cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
+            TelaResumoPizza principal = new TelaResumoPizza(modeloTabela, pizza);
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
             dispose();
@@ -304,30 +307,28 @@ public class TelaAddPizza extends javax.swing.JFrame {
                     escolhido = i;
                 }
             }
+            
             if (escolhido == null) {
                 throw new Exception();
             }
             escolhido.setQuantidade(quantidadeDigitada);
             boolean ingredienteNovo = true;
+            int linha = 0;
             for (Ingrediente i : pizza.getIngredientes()) {
                 if (i.getNome().equals(escolhido.getNome())) {
                     ingredienteNovo = false;
-                    i.setQuantidade(i.getQuantidade() + quantidadeDigitada);
+                    i.setQuantidade(Double.parseDouble(modeloTabela.getValueAt(linha, 1).toString().split(" ")[0]) + quantidadeDigitada);
+                    modeloTabela.setValueAt(i.getQuantidade() + " Kg", linha, 1);
                 }
+                linha++;
             }
 
             if (ingredienteNovo) {
                 pizza.ingredientes.add(escolhido);
+                modeloTabela.addRow(escolhido.RetornaModeloTabela());
             }
-            DefaultTableModel modeloTabela = new DefaultTableModel();
-            modeloTabela.addColumn("Ingrediente");
-            modeloTabela.addColumn("Quantidade");
-            modeloTabela.addColumn("Custo unitário");
-            modeloTabela.addColumn("Custo item");
-            for (int i = 0; i < pizza.ingredientes.size(); i++) {
-                Ingrediente temp = pizza.ingredientes.get(i);
-                modeloTabela.addRow(temp.RetornaModeloTabela());
-            }
+            
+            
             tf_Qtd.setText("");
             tf_ValorTotal.setText("R$ " + pizza.getValorTotal());
             tabela_Geral.setModel(modeloTabela);
@@ -381,11 +382,11 @@ public class TelaAddPizza extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CbTamanho;
     private javax.swing.JButton btn_AddIgrediente;
     private javax.swing.JButton btn_Cadastrar;
     private javax.swing.JButton btn_Cancelar;
     private javax.swing.JComboBox<String> combo_ingredientes;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -8,14 +8,24 @@ public class Produto {
     private String Nome;
     private int Quantidade;
     private double ValorBase;
+    private String TipoProduto;
+    private ArrayList<String> Tipos = new ArrayList();
 
-    public Produto(String Nome, double ValorBase){
+    public Produto(String Nome, double ValorBase, String TipoProduto, String TamanhoOuEmbalagem){
         this.Nome = Nome;
         this.ValorBase = ValorBase;
+        this.TipoProduto = TipoProduto;
+        this.Tipos.add(TamanhoOuEmbalagem);
     }
     
-    public Produto(){
-        
+    public Produto(){ }
+
+    public ArrayList<String> getTipos() {
+        return Tipos;
+    }
+
+    public void setTipos(ArrayList<String> Tipos) {
+        this.Tipos = Tipos;
     }
     
     public String getNome() {

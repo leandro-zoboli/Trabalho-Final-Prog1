@@ -6,9 +6,10 @@ public class ProdutoPizza extends Produto {
     public ArrayList<Ingrediente> ingredientes = new ArrayList<>();
     String Tamanho = "";
 
-    public ProdutoPizza(String Nome, double ValorBase, String Tamanho){
-        super(Nome, ValorBase);
+    public ProdutoPizza(String Nome, double ValorBase, String Tamanho, ArrayList<Ingrediente> ingredientes){
+        super(Nome, ValorBase, "Pizza", Tamanho);
         this.Tamanho = Tamanho;
+        this.ingredientes = ingredientes;
     }
     
     public ProdutoPizza(){
@@ -27,6 +28,14 @@ public class ProdutoPizza extends Produto {
         this.ingredientes = igredientes;
     }
 
+    public String getTamanho() {
+        return Tamanho;
+    }
+
+    public void setTamanho(String Tamanho) {
+        this.Tamanho = Tamanho;
+    }
+    
     public double getValorTotal() {
         try {
             float retorno = 0;

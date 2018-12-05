@@ -7,28 +7,43 @@ import Classes.ProdutoPizza;
 import Classes.Cliente;
 import Classes.Produto;
 import java.util.ArrayList;
+import java.util.Locale;
+import javax.swing.SwingConstants;
 
 public class InterfacePrincipal extends javax.swing.JFrame {
-
-    public InterfacePrincipal() {
-        initComponents();
-        setTitle("Pizzaria do Marcel :D");
-        setLocationRelativeTo(null);
-    }
 
     private static ArrayList<Pedido> pedidos = new ArrayList<>();
     private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
     private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
     private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
     private static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static String nomePizzaria;
     
-    InterfacePrincipal(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
+    public InterfacePrincipal() {
+        initComponents();
+        setTitle("Pizzaria " + nomePizzaria);
+        LTitulo.setText("Pizzaria " + nomePizzaria);
+        LTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+    }
+    
+    public InterfacePrincipal(String nomePizzaria){
+        initComponents();
+        this.nomePizzaria = nomePizzaria;
+        setTitle("Pizzaria " + nomePizzaria);
+        LTitulo.setText("Pizzaria " + nomePizzaria);
+        LTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+    }   
+    
+    public InterfacePrincipal(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes) {
         this.pedidos = pedidos;
         this.bebidas = bebidas;
         this.pizzas = pizzas;
         this.clientes = clientes;
         this.ingredientes = ingredientes;
         initComponents();
+        setTitle("Pizzaria " + nomePizzaria);
+        LTitulo.setText("Pizzaria " + nomePizzaria);
+        LTitulo.setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,6 +55,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
         BtIngrediente = new javax.swing.JButton();
         BtSair = new javax.swing.JButton();
         btn_AddBebida = new javax.swing.JButton();
+        LTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,36 +94,47 @@ public class InterfacePrincipal extends javax.swing.JFrame {
             }
         });
 
+        LTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        LTitulo.setText("título");
+        LTitulo.setAlignmentY(0.0F);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_AddBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(BtSair)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(BtPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_AddBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(230, 230, 230)
+                                .addComponent(BtSair))))
+                    .addComponent(LTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(LTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtPedido)
                     .addComponent(BtProduto)
                     .addComponent(BtIngrediente)
                     .addComponent(btn_AddBebida))
                 .addGap(18, 18, 18)
-                .addComponent(BtSair, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addComponent(BtSair)
                 .addContainerGap())
         );
 
@@ -198,6 +225,7 @@ public class InterfacePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton BtPedido;
     private javax.swing.JButton BtProduto;
     private javax.swing.JButton BtSair;
+    private javax.swing.JLabel LTitulo;
     private javax.swing.JButton btn_AddBebida;
     // End of variables declaration//GEN-END:variables
 }

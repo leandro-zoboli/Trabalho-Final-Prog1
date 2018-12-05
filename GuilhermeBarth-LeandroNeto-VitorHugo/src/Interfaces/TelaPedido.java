@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author vhelmbrecht
  */
 public class TelaPedido extends javax.swing.JFrame {
-
+    
     private static ArrayList<Pedido> pedidos = new ArrayList<>();
     private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
     private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
@@ -30,12 +30,13 @@ public class TelaPedido extends javax.swing.JFrame {
     private static ArrayList<Cliente> clientes = new ArrayList<>();
     private static ArrayList<Produto> produtos = new ArrayList<>();
     private static Pedido pedido = new Pedido(pedidos.size() + 1);
-
+    private Produto produtoSelecionado = null;
+    
     public TelaPedido() {
         initComponents();
         setTitle("Cadastro de pedidos");
     }
-
+    
     TelaPedido(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes, ArrayList<Produto> produtos) {
         this.pedidos = pedidos;
         this.ingredientes = ingredientes;
@@ -47,13 +48,14 @@ public class TelaPedido extends javax.swing.JFrame {
         AdicionaProdutosNoComboBox();
         setTitle("Cadastro de pedidos");
     }
-
+    
     private void AdicionaProdutosNoComboBox() {
         int length = 0;
         for (Produto i : this.produtos) {
             length++;
         }
         String[] vetorProdutos = new String[length];
+        String[] vetorTipos;
         int index = 0;
         for (Produto i : this.produtos) {
             vetorProdutos[index] = i.getNome();
@@ -88,12 +90,14 @@ public class TelaPedido extends javax.swing.JFrame {
         btn_Confirmar = new javax.swing.JButton();
         btn_Cancelar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
-        combo_Produtos = new javax.swing.JComboBox<String>();
+        combo_Produtos = new javax.swing.JComboBox<>();
         btn_AdicionaProduto = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabela_Geral = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        CbInfo = new javax.swing.JComboBox<>();
+        LInfo = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -170,6 +174,11 @@ public class TelaPedido extends javax.swing.JFrame {
                 combo_ProdutosActionPerformed(evt);
             }
         });
+        combo_Produtos.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                combo_ProdutosPropertyChange(evt);
+            }
+        });
 
         btn_AdicionaProduto.setText("Adicionar");
         btn_AdicionaProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -212,6 +221,8 @@ public class TelaPedido extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("Pedido -------------------------------------------------------------------------------------------------------------");
 
+        LInfo.setText("Info.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -222,45 +233,42 @@ public class TelaPedido extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tf_ValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btn_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(14, 14, 14)
-                                        .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
+                                        .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(combo_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btn_AdicionaProduto))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel4)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel3))
-                                            .addComponent(jLabel1))
-                                        .addGap(35, 35, 35)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(tf_NomeCliente)
-                                            .addComponent(tf_Endereco, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                                            .addComponent(tf_Telefone))))
-                                .addGap(327, 327, 327))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(jLabel3))
+                                    .addComponent(jLabel1))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tf_NomeCliente)
+                                    .addComponent(tf_Endereco, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                                    .addComponent(tf_Telefone)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(combo_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(LInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_AdicionaProduto)))
+                        .addGap(168, 168, 168))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel13)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tf_ValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(14, 14, 14)
+                            .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,13 +288,15 @@ public class TelaPedido extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(tf_Endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(jLabel6)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(combo_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_AdicionaProduto))
+                    .addComponent(btn_AdicionaProduto)
+                    .addComponent(CbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LInfo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -336,9 +346,12 @@ public class TelaPedido extends javax.swing.JFrame {
             pedido.setCliente(cliente);
             pedidos.add(pedido);
             JOptionPane.showMessageDialog(this, "Pedido feito com sucesso! Deseja cadastrara outro pedido?", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            TelaResumoPedido principal = new TelaResumoPedido(pedido);
+            InterfacePrincipal principal = new InterfacePrincipal();
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
+            //TelaResumoPizza principal = new TelaResumoPizza(pedido);
+            //principal.setVisible(true);
+            //principal.setLocationRelativeTo(null);
             dispose();
         } catch (Exception erro) {
             if (mostrarErro) {
@@ -349,15 +362,33 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void combo_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ProdutosActionPerformed
         String item = "";
-
+        
         combo_Produtos.addItem(item);
 
+        try {
+            String nomeProduto = combo_Produtos.getSelectedItem().toString();
+            for (Produto p : produtos) {
+                if (p.getNome().equals(nomeProduto)) {
+                    produtoSelecionado = p;
+                }
+            }
+           if (produtoSelecionado == null) {
+                throw new Exception();
+            }
+            String[] tipos = new String[produtoSelecionado.getTipos().size()];
+            for (int i = 0; i < tipos.length; i++) {
+                tipos[i] = produtoSelecionado.getTipos().get(i);
+            }
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao selecionar o produto", "Erro", JOptionPane.WARNING_MESSAGE);
+        }
+        
     }//GEN-LAST:event_combo_ProdutosActionPerformed
 
     private void btn_AdicionaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdicionaProdutoActionPerformed
         try {
             String nomeProdutoSelecionado = (String) combo_Produtos.getSelectedItem();
-
+            
             ProdutoBebida selecionado_Bebida = null;
             ProdutoPizza selecionado_Pizza = null;
             for (ProdutoBebida bebida : bebidas) {
@@ -375,7 +406,7 @@ public class TelaPedido extends javax.swing.JFrame {
             if (selecionado_Bebida == null && selecionado_Pizza == null) {
                 throw new Exception();
             }
-            Produto produtoSelecionado = null;
+            
             boolean ehBebida = false;
             if (selecionado_Bebida != null) {
                 produtoSelecionado = (Produto) selecionado_Bebida;
@@ -383,23 +414,23 @@ public class TelaPedido extends javax.swing.JFrame {
             } else {
                 produtoSelecionado = (Produto) selecionado_Pizza;
             }
-
+            
             boolean produtoNovo = true;
-
+            
             for (ProdutoBebida bebida : pedido.Bebidas) {
                 if (bebida.getNome().equals(produtoSelecionado.getNome())) {
                     produtoNovo = false;
                     bebida.setQuantidade(bebida.getQuantidade() + 1);
                 }
             }
-
+            
             for (ProdutoPizza pizza : pedido.Pizzas) {
                 if (pizza.getNome().equals(produtoSelecionado.getNome())) {
                     produtoNovo = false;
                     pizza.setQuantidade(pizza.getQuantidade() + 1);
                 }
             }
-
+            
             if (produtoNovo) {
                 if (ehBebida) {
                     selecionado_Bebida.setQuantidade(1);
@@ -414,21 +445,25 @@ public class TelaPedido extends javax.swing.JFrame {
             modeloTabela.addColumn("Unitário");
             modeloTabela.addColumn("Quantidade");
             modeloTabela.addColumn("Total");
-
+            
             for (ProdutoBebida bebida : pedido.Bebidas) {
                 modeloTabela.addRow(bebida.RetornaFormatoTabela());
             }
-
+            
             for (ProdutoPizza pizza : pedido.Pizzas) {
                 modeloTabela.addRow(pizza.RetornaFormatoTabela());
             }
-
+            
             tf_ValorTotal.setText("R$ " + pedido.GetValorTotalPedido());
             tabela_Geral.setModel(modeloTabela);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o produto ao pedido", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_AdicionaProdutoActionPerformed
+
+    private void combo_ProdutosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_combo_ProdutosPropertyChange
+        
+    }//GEN-LAST:event_combo_ProdutosPropertyChange
 
     /**
      * @param args the command line arguments
@@ -467,6 +502,8 @@ public class TelaPedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CbInfo;
+    private javax.swing.JLabel LInfo;
     private javax.swing.JButton btn_AdicionaProduto;
     private javax.swing.JButton btn_Cancelar;
     private javax.swing.JButton btn_Confirmar;

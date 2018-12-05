@@ -1,28 +1,34 @@
-
 package Classes;
+
+import java.util.ArrayList;
 
 public class ProdutoBebida extends Produto {
 
     private float Volume;
-    private String Embalagem;
+    private ArrayList<String> Embalagem = new ArrayList();
 
     public ProdutoBebida(String Nome, double ValorBase, float Volume, String Embalagem) {
-        super(Nome, ValorBase);
+        super(Nome, ValorBase, "Bebida", Embalagem);
         this.Volume = Volume;
-        this.Embalagem = Embalagem;
+        this.Embalagem.add(Embalagem);
     }
-    
-    public String getEmbalagem() {
+
+    public ArrayList<String> getEmbalagem() {
         return Embalagem;
     }
 
-    public void setEmbalagem(String Embalagem) {
-        this.Embalagem = Embalagem;
+    public void addEmbalagem(String Embalagem) {
+        boolean existe = false;
+        for (String e : this.Embalagem) {
+            if (e.equals(Embalagem)) {
+                existe = true;
+            }
+        }
+        if (!existe) {
+            this.Embalagem.add(Embalagem);
+        }
     }
-    private enum Embalagem {
-        lata, garrafaDeVidro, garrafaPlastica, caixa, outros;
-    }
-
+    
     public float getVolume() {
         return Volume;
     }

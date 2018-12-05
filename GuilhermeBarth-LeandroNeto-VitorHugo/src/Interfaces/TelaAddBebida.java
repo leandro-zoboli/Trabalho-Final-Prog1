@@ -180,10 +180,6 @@ public class TelaAddBebida extends javax.swing.JFrame {
             String embalagem = String.valueOf(combo_Embalagens.getSelectedItem());
 
             ProdutoBebida bebida = new ProdutoBebida(tf_Nome.getText(), Double.parseDouble(tf_Custo.getText().replace(',', '.')), Float.parseFloat(tf_Volume.getText().replace(',', '.')), embalagem);
-            bebida.setNome(tf_Nome.getText());
-            bebida.setEmbalagem(embalagem);
-            bebida.setVolume(Float.parseFloat(tf_Volume.getText().replace(',', '.')));
-            bebida.setValorBase(Double.parseDouble(tf_Custo.getText().replace(',', '.')));
             bebidas.add(bebida);
 
             JOptionPane.showMessageDialog(this, "Bebida cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);

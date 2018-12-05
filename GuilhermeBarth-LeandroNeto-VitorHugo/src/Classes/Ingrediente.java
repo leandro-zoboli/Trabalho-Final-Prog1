@@ -7,7 +7,12 @@ public class Ingrediente {
     private String Nome;
     private double ValorUnitario;
     private double Quantidade;
-//;;yufytf
+    
+    public Ingrediente(String Nome, double ValorUnitario){
+        this.Nome = Nome;
+        this.ValorUnitario = ValorUnitario;
+    }
+    
     public String getNome() {
         return Nome;
     }
@@ -45,7 +50,7 @@ public class Ingrediente {
     public String[] RetornaModeloTabela(){
         String[] retorno = new String[4];
         retorno[0] = this.getNome();
-        retorno[1] = this.getQuantidade() + " kg";
+        retorno[1] = this.getQuantidade() + " Kg";
         retorno[2] = "R$ " + this.getCustoUnitario();
         retorno[3] = "R$ " + this.GetCustoItem();
         return retorno;
