@@ -285,16 +285,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
     }//GEN-LAST:event_combo_ingredientesActionPerformed
 
     private void btn_AddIgredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AddIgredienteActionPerformed
-        boolean necessitaMostrarMensagem = true;
         try {
-            for (ProdutoPizza p : pizzas) {
-                if (p.getNome().equals(tf_Nome.getText())) {
-                    JOptionPane.showMessageDialog(this, "Já existe uma pizza com este nome", "Erro", JOptionPane.WARNING_MESSAGE);
-                    necessitaMostrarMensagem = false;
-                    throw new Exception();
-                }
-            }
-
             if (tf_Qtd.getText().equals("")) {
                 tf_Qtd.setText("0.00");
             }
@@ -307,11 +298,11 @@ public class TelaAddPizza extends javax.swing.JFrame {
                     escolhido = i;
                 }
             }
-            
+
             if (escolhido == null) {
                 throw new Exception();
             }
-            escolhido.setQuantidade(quantidadeDigitada);
+            escolhido.setQuantidade(escolhido.getQuantidade() + quantidadeDigitada);
             boolean ingredienteNovo = true;
             int linha = 0;
             for (Ingrediente i : pizza.getIngredientes()) {
@@ -319,6 +310,7 @@ public class TelaAddPizza extends javax.swing.JFrame {
                     ingredienteNovo = false;
                     i.setQuantidade(Double.parseDouble(modeloTabela.getValueAt(linha, 1).toString().split(" ")[0]) + quantidadeDigitada);
                     modeloTabela.setValueAt(i.getQuantidade() + " Kg", linha, 1);
+                    modeloTabela.setValueAt(i.GetCustoItem(), linha, 3);
                 }
                 linha++;
             }
@@ -327,15 +319,12 @@ public class TelaAddPizza extends javax.swing.JFrame {
                 pizza.ingredientes.add(escolhido);
                 modeloTabela.addRow(escolhido.RetornaModeloTabela());
             }
-            
-            
+
             tf_Qtd.setText("");
             tf_ValorTotal.setText("R$ " + pizza.getValorTotal());
             tabela_Geral.setModel(modeloTabela);
         } catch (Exception erro) {
-            if (necessitaMostrarMensagem) {
-                JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o ingrediente na pizza", "Erro", JOptionPane.WARNING_MESSAGE);
-            }
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o ingrediente na pizza", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_AddIgredienteActionPerformed
 
