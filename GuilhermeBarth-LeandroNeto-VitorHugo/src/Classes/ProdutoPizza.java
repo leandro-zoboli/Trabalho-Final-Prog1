@@ -3,12 +3,12 @@ package Classes;
 import java.util.ArrayList;
 
 public class ProdutoPizza extends Produto {
-    public ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-    String Tamanho = "";
+    public ArrayList<Ingrediente> ingredientes = new ArrayList();
+    ArrayList <String> Tamanho = new ArrayList();
 
-    public ProdutoPizza(String Nome, double ValorBase, String Tamanho, ArrayList<Ingrediente> ingredientes){
-        super(Nome, ValorBase, "Pizza", Tamanho);
-        this.Tamanho = Tamanho;
+    public ProdutoPizza(String Nome, double ValorBase, String Tamanho, ArrayList<Ingrediente> ingredientes, long ID){
+        super(Nome, ValorBase, "Pizza", Tamanho, ID);
+        this.Tamanho.add(Tamanho);
         this.ingredientes = ingredientes;
     }
     
@@ -28,13 +28,11 @@ public class ProdutoPizza extends Produto {
         this.ingredientes = igredientes;
     }
 
-    public String getTamanho() {
+    public ArrayList<String> getTamanho() {
         return Tamanho;
     }
-
-    public void setTamanho(String Tamanho) {
-        this.Tamanho = Tamanho;
-    }
+    
+    
     
     public double getValorTotal() {
         try {
@@ -47,4 +45,18 @@ public class ProdutoPizza extends Produto {
             throw new IllegalArgumentException("Ocorreu um erro ao calcular o valor total da pizza " + this.getNome() + ". Erro: " + e.getMessage());
         }
     }
+    
+    public void addTamanho(String tamanho){
+        boolean existe = false;
+        for (String e : this.Tamanho) {
+            if (e.equals(tamanho)) {
+                existe = true;
+            }
+        }
+        if (!existe) {
+            this.Tamanho.add(tamanho);
+            super.adicionaTipo(tamanho);
+        }
+    }
+    
 }

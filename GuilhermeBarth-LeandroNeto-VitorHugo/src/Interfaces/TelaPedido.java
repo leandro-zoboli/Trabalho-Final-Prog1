@@ -22,21 +22,23 @@ import javax.swing.table.DefaultTableModel;
  * @author vhelmbrecht
  */
 public class TelaPedido extends javax.swing.JFrame {
-    
-    private static ArrayList<Pedido> pedidos = new ArrayList<>();
-    private static ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-    private static ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
-    private static ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
-    private static ArrayList<Cliente> clientes = new ArrayList<>();
-    private static ArrayList<Produto> produtos = new ArrayList<>();
-    private static Pedido pedido = new Pedido(pedidos.size() + 1);
-    private Produto produtoSelecionado = null;
-    
+
+    private  ArrayList<Pedido> pedidos = new ArrayList<>();
+    private  ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private  ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private  ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private  ArrayList<Cliente> clientes = new ArrayList<>();
+    private  ArrayList<Produto> produtos = new ArrayList<>();
+    private  ArrayList<Produto> produtosSelecionados = new ArrayList<>();
+    private  Pedido pedido = new Pedido(pedidos.size() + 1);
+    private  Produto ProdutoSelecionado = null;
+    String nomeProdutoSelecionado = "";
+
     public TelaPedido() {
         initComponents();
         setTitle("Cadastro de pedidos");
     }
-    
+
     TelaPedido(ArrayList<Pedido> pedidos, ArrayList<Ingrediente> ingredientes, ArrayList<ProdutoBebida> bebidas, ArrayList<ProdutoPizza> pizzas, ArrayList<Cliente> clientes, ArrayList<Produto> produtos) {
         this.pedidos = pedidos;
         this.ingredientes = ingredientes;
@@ -48,7 +50,7 @@ public class TelaPedido extends javax.swing.JFrame {
         AdicionaProdutosNoComboBox();
         setTitle("Cadastro de pedidos");
     }
-    
+
     private void AdicionaProdutosNoComboBox() {
         int length = 0;
         for (Produto i : this.produtos) {
@@ -169,14 +171,14 @@ public class TelaPedido extends javax.swing.JFrame {
 
         jLabel14.setText("Produto");
 
+        combo_Produtos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                combo_ProdutosItemStateChanged(evt);
+            }
+        });
         combo_Produtos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 combo_ProdutosActionPerformed(evt);
-            }
-        });
-        combo_Produtos.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                combo_ProdutosPropertyChange(evt);
             }
         });
 
@@ -251,12 +253,12 @@ public class TelaPedido extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(combo_Produtos, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
-                                .addComponent(LInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(LInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(CbInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btn_AdicionaProduto)))
-                        .addGap(168, 168, 168))
+                        .addGap(121, 121, 121))
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -328,6 +330,7 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_ValorTotalActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        
         InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
@@ -361,109 +364,85 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_ConfirmarActionPerformed
 
     private void combo_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_ProdutosActionPerformed
-        String item = "";
-        
-        combo_Produtos.addItem(item);
 
-        try {
-            String nomeProduto = combo_Produtos.getSelectedItem().toString();
-            for (Produto p : produtos) {
-                if (p.getNome().equals(nomeProduto)) {
-                    produtoSelecionado = p;
-                }
-            }
-           if (produtoSelecionado == null) {
-                throw new Exception();
-            }
-            String[] tipos = new String[produtoSelecionado.getTipos().size()];
-            for (int i = 0; i < tipos.length; i++) {
-                tipos[i] = produtoSelecionado.getTipos().get(i);
-            }
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao selecionar o produto", "Erro", JOptionPane.WARNING_MESSAGE);
-        }
-        
     }//GEN-LAST:event_combo_ProdutosActionPerformed
 
     private void btn_AdicionaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AdicionaProdutoActionPerformed
         try {
-            String nomeProdutoSelecionado = (String) combo_Produtos.getSelectedItem();
-            
-            ProdutoBebida selecionado_Bebida = null;
-            ProdutoPizza selecionado_Pizza = null;
-            for (ProdutoBebida bebida : bebidas) {
-                if (bebida.getNome().equals(nomeProdutoSelecionado)) {
-                    selecionado_Bebida = bebida;
-                }
+            String InfoSelecionada = CbInfo.getSelectedItem().toString();
+
+            if (ProdutoSelecionado == null) {
+                throw new Exception("O produto selecionado não está registrado!");
             }
-            if (selecionado_Bebida == null) {
-                for (ProdutoPizza pizza : pizzas) {
-                    if (pizza.getNome().equals(nomeProdutoSelecionado)) {
-                        selecionado_Pizza = pizza;
-                    }
-                }
-            }
-            if (selecionado_Bebida == null && selecionado_Pizza == null) {
-                throw new Exception();
-            }
-            
-            boolean ehBebida = false;
-            if (selecionado_Bebida != null) {
-                produtoSelecionado = (Produto) selecionado_Bebida;
-                ehBebida = true;
-            } else {
-                produtoSelecionado = (Produto) selecionado_Pizza;
-            }
-            
+
             boolean produtoNovo = true;
-            
-            for (ProdutoBebida bebida : pedido.Bebidas) {
-                if (bebida.getNome().equals(produtoSelecionado.getNome())) {
-                    produtoNovo = false;
-                    bebida.setQuantidade(bebida.getQuantidade() + 1);
-                }
+
+            for (Produto p : produtos) {
+                if (p.getID() == ProdutoSelecionado.getID()) {
+            //       produtoNovo = false;
+                   p.setQuantidade(p.getQuantidade() + 1);
+               }
             }
-            
-            for (ProdutoPizza pizza : pedido.Pizzas) {
-                if (pizza.getNome().equals(produtoSelecionado.getNome())) {
-                    produtoNovo = false;
-                    pizza.setQuantidade(pizza.getQuantidade() + 1);
+
+            //if (produtoNovo) {
+                if (ProdutoSelecionado.getTipoProduto().equals("Bebida")) {
+                    ProdutoSelecionado.setQuantidade(1);
+                    pedido.Bebidas.add((ProdutoBebida) ProdutoSelecionado);
+               } else {
+                    ProdutoSelecionado.setQuantidade(1);
+                    pedido.Pizzas.add((ProdutoPizza) ProdutoSelecionado);
                 }
-            }
-            
-            if (produtoNovo) {
-                if (ehBebida) {
-                    selecionado_Bebida.setQuantidade(1);
-                    pedido.Bebidas.add(selecionado_Bebida);
-                } else {
-                    selecionado_Pizza.setQuantidade(1);
-                    pedido.Pizzas.add(selecionado_Pizza);
-                }
-            }
+            //}
             DefaultTableModel modeloTabela = new DefaultTableModel();
             modeloTabela.addColumn("Nome");
             modeloTabela.addColumn("Unitário");
             modeloTabela.addColumn("Quantidade");
             modeloTabela.addColumn("Total");
+
+            produtosSelecionados.add(ProdutoSelecionado);
             
-            for (ProdutoBebida bebida : pedido.Bebidas) {
-                modeloTabela.addRow(bebida.RetornaFormatoTabela());
+            for (Produto p : produtosSelecionados) {
+                modeloTabela.addRow(p.RetornaFormatoTabela(CbInfo.getSelectedItem().toString()));
             }
-            
-            for (ProdutoPizza pizza : pedido.Pizzas) {
-                modeloTabela.addRow(pizza.RetornaFormatoTabela());
-            }
-            
-            tf_ValorTotal.setText("R$ " + pedido.GetValorTotalPedido());
+
+            tf_ValorTotal.setText("R$ " + pedido.GetValorTotalPedido(ProdutoSelecionado, CbInfo.getSelectedItem().toString()));
             tabela_Geral.setModel(modeloTabela);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao adicionar o produto ao pedido", "Erro", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btn_AdicionaProdutoActionPerformed
 
-    private void combo_ProdutosPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_combo_ProdutosPropertyChange
-        
-    }//GEN-LAST:event_combo_ProdutosPropertyChange
+    private void combo_ProdutosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_ProdutosItemStateChanged
+        try {
+            nomeProdutoSelecionado = combo_Produtos.getSelectedItem().toString();
+            for (Produto p : produtos) {
+                if (p.getNome().equals(nomeProdutoSelecionado)) {
+                    ProdutoSelecionado = p;
+                }
+            }
+            if (ProdutoSelecionado == null) {
+                throw new Exception();
+            }
+            String[] tipos = new String[ProdutoSelecionado.getTipos().size()];
+            for (int i = 0; i < tipos.length; i++) {
+                tipos[i] = ProdutoSelecionado.getTipos().get(i);
+            }
+
+            if (ProdutoSelecionado.getTipoProduto().equals("Bebida")) {
+                LInfo.setText("Embalagem");
+            } else {
+                LInfo.setText("Tamanho");
+            }
+            String Infos[] = new String[ProdutoSelecionado.getTipos().size()];
+            for (int i = 0; i < ProdutoSelecionado.getTipos().size(); i++) {
+                Infos[i] = ProdutoSelecionado.getTipos().get(i);
+            }
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel(Infos);
+            CbInfo.setModel(modelo);
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro ao selecionar o produto", "Erro", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_combo_ProdutosItemStateChanged
 
     /**
      * @param args the command line arguments

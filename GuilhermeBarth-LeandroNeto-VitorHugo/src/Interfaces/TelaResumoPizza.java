@@ -5,9 +5,9 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaResumoPizza extends javax.swing.JFrame {
 
-     public TelaResumoPizza(DefaultTableModel modelo, ProdutoPizza pizza) {
+     public TelaResumoPizza(DefaultTableModel modelo, ProdutoPizza pizza, String tamanhoSelecionado) {
         initComponents();
-        LNomePizza.setText("Ficha da pizza de \"" + pizza.getNome() + "\" - tamanho " + pizza.getTamanho());
+        LNomePizza.setText("Ficha da pizza de \"" + pizza.getNome() + "\" - tamanho " + tamanhoSelecionado);
         TbIngredientes.setModel(modelo);
         LPrecoFinal.setText("R$" + pizza.getValorTotal());
         setTitle("Resumo da pizza cadastrada");

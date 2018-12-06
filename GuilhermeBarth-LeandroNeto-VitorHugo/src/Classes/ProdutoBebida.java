@@ -7,8 +7,8 @@ public class ProdutoBebida extends Produto {
     private float Volume;
     private ArrayList<String> Embalagem = new ArrayList();
 
-    public ProdutoBebida(String Nome, double ValorBase, float Volume, String Embalagem) {
-        super(Nome, ValorBase, "Bebida", Embalagem);
+    public ProdutoBebida(String Nome, double ValorBase, float Volume, String Embalagem, long ID) {
+        super(Nome, ValorBase, "Bebida", Embalagem, ID);
         this.Volume = Volume;
         this.Embalagem.add(Embalagem);
     }
@@ -26,6 +26,7 @@ public class ProdutoBebida extends Produto {
         }
         if (!existe) {
             this.Embalagem.add(Embalagem);
+            super.adicionaTipo(Embalagem);
         }
     }
     

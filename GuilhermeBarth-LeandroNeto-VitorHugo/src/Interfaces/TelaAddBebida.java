@@ -167,20 +167,24 @@ public class TelaAddBebida extends javax.swing.JFrame {
     private void btn_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CadastrarActionPerformed
         boolean necessitaMostrarMensagem = true;
         try {
+            boolean existe = false;
+            String embalagem = String.valueOf(combo_Embalagens.getSelectedItem());
             for (ProdutoBebida b : bebidas) {
                 if (b.getNome().equals(tf_Nome.getText())) {
-                    JOptionPane.showMessageDialog(this, "Já existe uma bebida com este nome", "Erro", JOptionPane.WARNING_MESSAGE);
-                    necessitaMostrarMensagem = false;
-                    throw new Exception();
+                    b.addEmbalagem(embalagem);
+                    b.addPrecoTipo(embalagem, Double.parseDouble(tf_Custo.getText().replace(',', '.')));
+                    existe = true;
                 }
             }
+
             if (tf_Volume.getText().equals("") || tf_Custo.getText().equals("") || tf_Nome.getText().equals("")) {
                 throw new Exception();
             }
-            String embalagem = String.valueOf(combo_Embalagens.getSelectedItem());
 
-            ProdutoBebida bebida = new ProdutoBebida(tf_Nome.getText(), Double.parseDouble(tf_Custo.getText().replace(',', '.')), Float.parseFloat(tf_Volume.getText().replace(',', '.')), embalagem);
-            bebidas.add(bebida);
+            if (!existe) {
+                ProdutoBebida bebida = new ProdutoBebida(tf_Nome.getText(), Double.parseDouble(tf_Custo.getText().replace(',', '.')), Float.parseFloat(tf_Volume.getText().replace(',', '.')), embalagem, bebidas.size() + pizzas.size());
+                bebidas.add(bebida);
+            }
 
             JOptionPane.showMessageDialog(this, "Bebida cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);

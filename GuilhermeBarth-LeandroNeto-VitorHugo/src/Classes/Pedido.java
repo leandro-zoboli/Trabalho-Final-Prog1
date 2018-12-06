@@ -1,23 +1,24 @@
-
 package Classes;
+
 import Classes.ProdutoBebida;
 import Classes.ProdutoPizza;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Pedido {
+
     public ArrayList<ProdutoBebida> Bebidas = new ArrayList();
     public ArrayList<ProdutoPizza> Pizzas = new ArrayList<>();
     private Cliente cliente;
     private double ValorTotal;
     private long PedidoID;
-    
-    public Pedido(Cliente cliente, double ValorTotal){
+
+    public Pedido(Cliente cliente, double ValorTotal) {
         this.cliente = cliente;
         this.ValorTotal = ValorTotal;
     }
-    
-    public Pedido(long PedidoID){
+
+    public Pedido(long PedidoID) {
         this.PedidoID = PedidoID;
     }
 
@@ -60,26 +61,18 @@ public class Pedido {
     public void setPedidoID(long PedidoID) {
         this.PedidoID = PedidoID;
     }
-    
-    public double GetValorTotalPedido(){
-        double retorno = 0.0;
-        
-        for(ProdutoBebida bebida : Bebidas){
-            retorno += bebida.GetValorVenda();
-        }
-        
-        for(ProdutoPizza pizza : Pizzas){
-            retorno += pizza.GetValorVenda();
-        }
-        return retorno;
+
+    public double GetValorTotalPedido(Produto p, String embalagemOuTamanho) {
+        ValorTotal += p.getPrecoTipos().get(embalagemOuTamanho);
+        return getValorTotal();
     }
-    
-    public String[] RetornaFormatoTabela(){
+
+    public String[] RetornaFormatoTabela(Produto p, String embalagemOuTamanho) {
         String[] retorno = new String[4];
         retorno[0] = this.getPedidoID() + "";
         retorno[1] = this.cliente.getNome();
         retorno[2] = this.cliente.getTelefone();
-        retorno[3] = this.GetValorTotalPedido() + "";
+        retorno[3] = this.GetValorTotalPedido(p, embalagemOuTamanho) + "";
         return retorno;
     }
 }

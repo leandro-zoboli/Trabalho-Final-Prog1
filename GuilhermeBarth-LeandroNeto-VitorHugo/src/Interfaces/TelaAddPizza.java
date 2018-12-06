@@ -267,11 +267,11 @@ public class TelaAddPizza extends javax.swing.JFrame {
             for (Ingrediente i : ingredientes) {
                 valorBase += i.GetCustoItem();
             }
-            ProdutoPizza pizza = new ProdutoPizza(tf_Nome.getText(), valorBase, CbTamanho.getSelectedItem().toString(), ingredientes);
+            ProdutoPizza pizza = new ProdutoPizza(tf_Nome.getText(), valorBase, CbTamanho.getSelectedItem().toString(), ingredientes, pizzas.size() + bebidas.size());
             pizzas.add(pizza);
 
             JOptionPane.showMessageDialog(this, "Pizza cadastrada com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            TelaResumoPizza principal = new TelaResumoPizza(modeloTabela, pizza);
+            TelaResumoPizza principal = new TelaResumoPizza(modeloTabela, pizza, CbTamanho.getSelectedItem().toString());
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
             dispose();

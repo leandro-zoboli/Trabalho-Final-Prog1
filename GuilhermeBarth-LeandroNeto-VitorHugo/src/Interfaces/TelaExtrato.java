@@ -47,8 +47,8 @@ public class TelaExtrato extends javax.swing.JFrame {
 
             double valorTotal = 0.0;
             for(Pedido p : pedidos){
-                valorTotal += p.GetValorTotalPedido();
-                modeloTabela.addRow(p.RetornaFormatoTabela());
+                valorTotal += p.getValorTotal();
+                //modeloTabela.addRow(p.RetornaFormatoTabela(p, ));
             }
             tf_ValorTotal.setText(valorTotal + "");
             TbPedidos.setModel(modeloTabela);
@@ -197,11 +197,12 @@ public class TelaExtrato extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel10)
+                        .addComponent(jLabel11)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
