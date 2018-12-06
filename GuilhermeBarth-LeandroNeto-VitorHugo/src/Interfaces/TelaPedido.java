@@ -23,16 +23,17 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaPedido extends javax.swing.JFrame {
 
-    private  ArrayList<Pedido> pedidos = new ArrayList<>();
-    private  ArrayList<Ingrediente> ingredientes = new ArrayList<>();
-    private  ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
-    private  ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
-    private  ArrayList<Cliente> clientes = new ArrayList<>();
-    private  ArrayList<Produto> produtos = new ArrayList<>();
-    private  ArrayList<Produto> produtosSelecionados = new ArrayList<>();
-    private  Pedido pedido = new Pedido(pedidos.size() + 1);
-    private  Produto ProdutoSelecionado = null;
+    private ArrayList<Pedido> pedidos = new ArrayList<>();
+    private ArrayList<Ingrediente> ingredientes = new ArrayList<>();
+    private ArrayList<ProdutoBebida> bebidas = new ArrayList<>();
+    private ArrayList<ProdutoPizza> pizzas = new ArrayList<>();
+    private ArrayList<Cliente> clientes = new ArrayList<>();
+    private ArrayList<Produto> produtos = new ArrayList<>();
+    private ArrayList<Produto> produtosSelecionados = new ArrayList<>();
+    private Pedido pedido = new Pedido(pedidos.size() + 1);
+    private Produto ProdutoSelecionado = null;
     String nomeProdutoSelecionado = "";
+    DefaultTableModel modeloTabela = new DefaultTableModel();
 
     public TelaPedido() {
         initComponents();
@@ -49,6 +50,11 @@ public class TelaPedido extends javax.swing.JFrame {
         initComponents();
         AdicionaProdutosNoComboBox();
         setTitle("Cadastro de pedidos");
+
+        modeloTabela.addColumn("Nome");
+        modeloTabela.addColumn("Unitário");
+        modeloTabela.addColumn("Quantidade");
+        modeloTabela.addColumn("Total");
     }
 
     private void AdicionaProdutosNoComboBox() {
@@ -330,7 +336,7 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_ValorTotalActionPerformed
 
     private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        
+
         InterfacePrincipal principal = new InterfacePrincipal(pedidos, ingredientes, bebidas, pizzas, clientes);
         principal.setVisible(true);
         principal.setLocationRelativeTo(null);
@@ -377,34 +383,35 @@ public class TelaPedido extends javax.swing.JFrame {
 
             boolean produtoNovo = true;
 
-            for (Produto p : produtos) {
+            for (Produto p : produtosSelecionados) {
                 if (p.getID() == ProdutoSelecionado.getID()) {
-            //       produtoNovo = false;
-                   p.setQuantidade(p.getQuantidade() + 1);
-               }
+                    produtoNovo = false;
+                    ProdutoSelecionado.setQuantidade(ProdutoSelecionado.getQuantidade() + 1);
+                }
             }
 
-            //if (produtoNovo) {
+            if (produtoNovo) {
                 if (ProdutoSelecionado.getTipoProduto().equals("Bebida")) {
                     ProdutoSelecionado.setQuantidade(1);
                     pedido.Bebidas.add((ProdutoBebida) ProdutoSelecionado);
-               } else {
+                } else {
                     ProdutoSelecionado.setQuantidade(1);
                     pedido.Pizzas.add((ProdutoPizza) ProdutoSelecionado);
                 }
-            //}
-            DefaultTableModel modeloTabela = new DefaultTableModel();
-            modeloTabela.addColumn("Nome");
-            modeloTabela.addColumn("Unitário");
-            modeloTabela.addColumn("Quantidade");
-            modeloTabela.addColumn("Total");
-
-            produtosSelecionados.add(ProdutoSelecionado);
-            
-            for (Produto p : produtosSelecionados) {
-                modeloTabela.addRow(p.RetornaFormatoTabela(CbInfo.getSelectedItem().toString()));
             }
 
+            if (produtoNovo) {
+                produtosSelecionados.add(ProdutoSelecionado);
+                modeloTabela.addRow(ProdutoSelecionado.RetornaFormatoTabela(CbInfo.getSelectedItem().toString()));
+            } else {
+                int linha = 0;
+                for (Produto p : produtosSelecionados) {
+                    if (p.getNome().equals(ProdutoSelecionado.getNome())) {
+                        modeloTabela.setValueAt(p.GetValorVenda(CbInfo.getSelectedItem().toString()), linha, 3);
+                    }
+                    linha++;
+                }
+            }
             tf_ValorTotal.setText("R$ " + pedido.GetValorTotalPedido(ProdutoSelecionado, CbInfo.getSelectedItem().toString()));
             tabela_Geral.setModel(modeloTabela);
         } catch (Exception erro) {
@@ -458,16 +465,24 @@ public class TelaPedido extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
