@@ -355,7 +355,7 @@ public class TelaPedido extends javax.swing.JFrame {
             Cliente cliente = new Cliente(tf_NomeCliente.getText(), tf_Telefone.getText(), tf_Endereco.getText());
             pedido.setCliente(cliente);
             pedidos.add(pedido);
-            JOptionPane.showMessageDialog(this, "Pedido feito com sucesso! Deseja cadastrara outro pedido?", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Pedido cadastrado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             InterfacePrincipal principal = new InterfacePrincipal();
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
