@@ -63,7 +63,7 @@ public class Pedido {
     }
 
     public double GetValorTotalPedido(Produto p, String embalagemOuTamanho) {
-        ValorTotal += p.getPrecoTipos().get(embalagemOuTamanho);
+        ValorTotal += p.getPrecoTipos().get(embalagemOuTamanho) * 1.9;
         return getValorTotal();
     }
 

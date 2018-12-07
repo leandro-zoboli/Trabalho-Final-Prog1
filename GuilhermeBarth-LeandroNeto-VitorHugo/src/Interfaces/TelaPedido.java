@@ -62,9 +62,10 @@ public class TelaPedido extends javax.swing.JFrame {
         for (Produto i : this.produtos) {
             length++;
         }
-        String[] vetorProdutos = new String[length];
+        String[] vetorProdutos = new String[length + 1];
+        vetorProdutos[0] = "Selecione...";
         String[] vetorTipos;
-        int index = 0;
+        int index = 1;
         for (Produto i : this.produtos) {
             vetorProdutos[index] = i.getNome();
             index++;
@@ -358,9 +359,6 @@ public class TelaPedido extends javax.swing.JFrame {
             InterfacePrincipal principal = new InterfacePrincipal();
             principal.setVisible(true);
             principal.setLocationRelativeTo(null);
-            //TelaResumoPizza principal = new TelaResumoPizza(pedido);
-            //principal.setVisible(true);
-            //principal.setLocationRelativeTo(null);
             dispose();
         } catch (Exception erro) {
             if (mostrarErro) {
@@ -407,6 +405,7 @@ public class TelaPedido extends javax.swing.JFrame {
                 int linha = 0;
                 for (Produto p : produtosSelecionados) {
                     if (p.getNome().equals(ProdutoSelecionado.getNome())) {
+                        modeloTabela.setValueAt(p.getQuantidade(), linha, 2);
                         modeloTabela.setValueAt(p.GetValorVenda(CbInfo.getSelectedItem().toString()), linha, 3);
                     }
                     linha++;
@@ -422,30 +421,37 @@ public class TelaPedido extends javax.swing.JFrame {
     private void combo_ProdutosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_combo_ProdutosItemStateChanged
         try {
             nomeProdutoSelecionado = combo_Produtos.getSelectedItem().toString();
-            for (Produto p : produtos) {
-                if (p.getNome().equals(nomeProdutoSelecionado)) {
-                    ProdutoSelecionado = p;
-                }
-            }
-            if (ProdutoSelecionado == null) {
-                throw new Exception();
-            }
-            String[] tipos = new String[ProdutoSelecionado.getTipos().size()];
-            for (int i = 0; i < tipos.length; i++) {
-                tipos[i] = ProdutoSelecionado.getTipos().get(i);
-            }
-
-            if (ProdutoSelecionado.getTipoProduto().equals("Bebida")) {
-                LInfo.setText("Embalagem");
+            if (nomeProdutoSelecionado.equals("Selecione...")) {
+                LInfo.setText("");
+                
+                DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+                CbInfo.setModel(modelo);
             } else {
-                LInfo.setText("Tamanho");
+                for (Produto p : produtos) {
+                    if (p.getNome().equals(nomeProdutoSelecionado)) {
+                        ProdutoSelecionado = p;
+                    }
+                }
+                if (ProdutoSelecionado == null) {
+                    throw new Exception();
+                }
+                String[] tipos = new String[ProdutoSelecionado.getTipos().size()];
+                for (int i = 0; i < tipos.length; i++) {
+                    tipos[i] = ProdutoSelecionado.getTipos().get(i);
+                }
+
+                if (ProdutoSelecionado.getTipoProduto().equals("Bebida")) {
+                    LInfo.setText("Embalagem");
+                } else {
+                    LInfo.setText("Tamanho");
+                }
+                String Infos[] = new String[ProdutoSelecionado.getTipos().size()];
+                for (int i = 0; i < ProdutoSelecionado.getTipos().size(); i++) {
+                    Infos[i] = ProdutoSelecionado.getTipos().get(i);
+                }
+                DefaultComboBoxModel modelo = new DefaultComboBoxModel(Infos);
+                CbInfo.setModel(modelo);
             }
-            String Infos[] = new String[ProdutoSelecionado.getTipos().size()];
-            for (int i = 0; i < ProdutoSelecionado.getTipos().size(); i++) {
-                Infos[i] = ProdutoSelecionado.getTipos().get(i);
-            }
-            DefaultComboBoxModel modelo = new DefaultComboBoxModel(Infos);
-            CbInfo.setModel(modelo);
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(this, "Ocorreu um erro ao selecionar o produto", "Erro", JOptionPane.WARNING_MESSAGE);
         }
